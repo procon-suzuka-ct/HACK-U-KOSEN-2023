@@ -11,10 +11,13 @@ type Fruit = {
 function toFruit(name: string) {
 
     let scr = react;
-    if(name === "apple") {
-        scr = "a";
-    } else if(name === "banana") {
-    
+    switch(name) {
+        case "apple":
+            scr = "";
+            break;
+        default:
+            scr = react;
+            break;
     }
 
     let f: Fruit = {
