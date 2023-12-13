@@ -1,7 +1,7 @@
 import useImage from 'use-image';
 import {Image} from 'react-konva';
 /*フルーツの画像をインポート*/
-
+import react from '../assets/react.svg';
 
 type Fruit = {
     name: string;
@@ -10,7 +10,7 @@ type Fruit = {
 
 function toFruit(name: string) {
 
-    let scr = "./assets/react.svg";
+    let scr = react;
     if(name === "apple") {
         scr = "a";
     } else if(name === "banana") {
@@ -35,6 +35,7 @@ function toImg(fruit: Fruit, width?:number, height?:number, draggable?:boolean) 
             onDragStart={(e) => {
                 e.dataTransfer.setDragImage(e.currentTarget, 0, 0)
                 e.dataTransfer.setData("fruit",fruit.name)
+                console.log(e.currentTarget);
             }}
         />
     );

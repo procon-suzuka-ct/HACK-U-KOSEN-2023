@@ -10,23 +10,33 @@ type IMG = {
 }
 
 // <img>タグを使ってドラッグした場合。
-    const [images, setImages] = React.useState<IMG[]>([]);
-    
-    const onDrop = (e: React.DragEvent<HTMLDivElement>):void => {
-        e.preventDefault();
-        const fruit_name = e.dataTransfer.getData("fruit");
-        const fruit = F.toFruit(fruit_name);
-        const img:IMG = {
-            scr: fruit.scr,
-            x: e.screenX,
-            y: e.screenY
-        }
-        // imagemapに追加
-        setImages(images.concat([img]))
-        e.dataTransfer.clearData();
+let images: IMG[] = [];
+
+const onDrop = (e: React.DragEvent<HTMLDivElement>): void => {
+    console.log("onDrop");
+    e.preventDefault();
+    const fruit_name = e.dataTransfer.getData("fruit");
+    const fruit = F.toFruit(fruit_name);
+    const img: IMG = {
+        scr: fruit.scr,
+        x: e.screenX,
+        y: e.screenY
     }
+    // imagemapに追加
+    console.log(img, images);
+    images.push(img);
+    e.dataTransfer.clearData();
+}
+
+const DropZone = () => {
+    return (
+        images.map((img) => {
+            return <img src={img.scr} style={{ position: "absolute", left: img.x, top: img.y }} />
+        })
+    );
+}
 
 
-export default onDrop;
-export type {IMG};
-export {images};
+export default DropZone;
+export type { IMG };
+export { images, onDrop };
