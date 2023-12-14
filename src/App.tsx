@@ -4,7 +4,6 @@ import Home from "./pages/Home.tsx";
 import Payment from "./pages/Payment.tsx";
 import Design from "./pages/Design.tsx";
 import Login from "./pages/Login.tsx";
-
 function App() {
   return (
     <BrowserRouter>
