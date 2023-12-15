@@ -9,7 +9,6 @@ type Fruit = {
 }
 
 function toFruit(name: string) {
-
     let scr = react;
     switch(name) {
         case "apple":
@@ -19,7 +18,6 @@ function toFruit(name: string) {
             scr = react;
             break;
     }
-
     let f: Fruit = {
         name: name,
         scr: scr
@@ -35,7 +33,7 @@ function toImg(fruit: Fruit, width?:number, height?:number, draggable?:boolean) 
             width={width}
             height={height}
             draggable={draggable}
-            onDragStart={(e) => {
+            onDragStart={(e:React.DragEvent<HTMLImageElement>) => {
                 e.dataTransfer.setDragImage(e.currentTarget, 0, 0)
                 e.dataTransfer.setData("fruit",fruit.name)
                 console.log(e.currentTarget);
@@ -47,7 +45,6 @@ function toImg(fruit: Fruit, width?:number, height?:number, draggable?:boolean) 
 function toImage(fruit: Fruit, x:number, y:number, width?:number, height?:number, draggable?:boolean) {
     
     const [image] = useImage(fruit.scr);
-
     return (
         <Image
             image={image}
