@@ -87,7 +87,7 @@ const HandWriting: React.FC<HandWritingAttribute> = (props) => {
 HandWriting.defaultProps = {
   width: 500,
   height: 300,
-  lineWidth: 15,
+  lineWidth: 10,
   lineColor: "rgb(100, 100, 100)",
   lineCap: "round",
 };
