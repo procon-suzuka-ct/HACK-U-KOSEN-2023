@@ -3,8 +3,14 @@ import {getFirestore} from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 
 const firebaseConfig = {
-  //TODO: Add your firebase config here
-}
+  apiKey: "AIzaSyCWZ4jXHVtKiwNuN7FhCHT195i8LsVHDkw",
+  authDomain: "fir-eb8f3.firebaseapp.com",
+  projectId: "fir-eb8f3",
+  storageBucket: "fir-eb8f3.appspot.com",
+  messagingSenderId: "656183891418",
+  appId: "1:656183891418:web:4fa1215f968821ada55ce3",
+  measurementId: "G-4QEXY8WMFQ"
+};
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
