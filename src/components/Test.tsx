@@ -1,15 +1,15 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { toFruit, toImg } from '../components/Fruit';
-import {Drop} from './RenderImage';
+import {RenderImage} from './RenderImage';
 import { Image, Stage, Layer, Text, Rect } from 'react-konva';
 import {IMAGE} from './RenderImage';
-import react from '../assets/react.svg';
 // １つ目のStageしか描画されない。=>仕様
 // Drow, RenderImage関数をクラスで返すようにする。
 
 const Test = () => {
   const [img, setImg] = useState<IMAGE[]>([]);
-  const fD = new Drop();
+  const fD = new RenderImage(img);
+
   return (
     <>
       <div>
@@ -19,7 +19,8 @@ const Test = () => {
       </div>
       <div
         onDrop={(e) => {
-          setImg(fD.onDrop(e, img));
+          fD.onDrop(e);
+          setImg(fD.imagemap);
         }}
         onDragOver={(e) => {
           fD.onDragOver(e);
@@ -32,12 +33,13 @@ const Test = () => {
             width={window.innerWidth}
             height={900}
             onClick={(e) => {
-                setImg(fD.onClick(e, img, toFruit("react")));
+              fD.onClick(e, toFruit("react"));
+              setImg(fD.imagemap);
             }}
         >
           <Layer>
             {
-              fD.RenderImage(img)
+              fD.RenderImage()
             }
           </Layer>
         </Stage>

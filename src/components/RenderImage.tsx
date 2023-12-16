@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Fruit, toImage, toFruit } from './Fruit'
-import styles from './Test.module.scss';
 import { Image, Stage, Layer, Text, Rect } from 'react-konva';
 import useImage from 'use-image';
 import { KonvaEventObject } from 'konva/lib/Node';
@@ -15,14 +14,18 @@ type IMAGE = {
 function URLImage({img}:any)
 {
     const [i] = useImage(img.scr);
-    return <Image image={i} x={img.x} y={img.y} />
+    return <Image image={i} x={img.x} y={img.y} width={200} height={200} />
 }
 
-export class Drop {
+export class RenderImage {
+    imagemap: IMAGE[] = [];
 
-    constructor() {};
+    constructor(imgmap: IMAGE[]) {
+        this.imagemap = imgmap;
+    };
     
-    onDrop(e: React.DragEvent<HTMLDivElement>, ImageMap: IMAGE[]){
+    
+    onDrop(e: React.DragEvent<HTMLDivElement>){
         console.log("onDrop");
         e.preventDefault();
         const fruit_name = e.dataTransfer.getData("fruit");
@@ -32,12 +35,11 @@ export class Drop {
             x: e.screenX,
             y: e.screenY
         }
-        // imagemapに追加
-        console.log(img, ImageMap);
-        ImageMap = ImageMap.concat([img]);
+        // this.imagemapに追加
+        console.log(img, this.imagemap);
+        this.imagemap = this.imagemap.concat([img]);
         e.dataTransfer.clearData();
         console.log("canDrop");
-        return ImageMap;
     }
 
     onDragOver(e: React.DragEvent<HTMLDivElement>){
@@ -45,7 +47,7 @@ export class Drop {
         console.log("onDragOver");
     }
 
-    onClick(e: KonvaEventObject<MouseEvent>, ImageMap: IMAGE[], Fruit: Fruit){
+    onClick(e: KonvaEventObject<MouseEvent>, Fruit: Fruit){
         const pos = e.target.getStage()?.getPointerPosition();
         if(pos){
             const img: IMAGE = {
@@ -53,15 +55,14 @@ export class Drop {
                 x: pos.x,
                 y: pos.y
             }
-            ImageMap = ImageMap.concat([img]);
+            this.imagemap = this.imagemap.concat([img]);
         }
-        return ImageMap;
     }
 
-    RenderImage(ImageMap: IMAGE[]){
+    RenderImage(){
         console.log("start RenderImage");
         return (
-            ImageMap.map((image) => {
+            this.imagemap.map((image) => {
                 return <URLImage img={image}/>
             })
         );
@@ -69,23 +70,21 @@ export class Drop {
     }
 
     //最後の要素を削除
-    RemoveImage(ImageMap: IMAGE[]){
-        ImageMap = ImageMap.slice(0, ImageMap.length -1)
-        return ImageMap;
+    RemoveImage(){
+        this.imagemap = this.imagemap.slice(0, this.imagemap.length -1);
     }
 
     //最も座標が近い要素を削除
-    DeleteImage(ImageMap:IMAGE[], x: number, y: number){
+    DeleteImage(x: number, y: number){
         let deleteImage: IMAGE;
         let deleteDistance: number;
-        ImageMap.map((image) => {
+        this.imagemap.map((image) => {
             if (deleteDistance > Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y))) {
                 deleteDistance = Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y));
                 deleteImage = image;
             }
         });
-        ImageMap = ImageMap.filter((image) => image != deleteImage);
-        return ImageMap;
+        this.imagemap = this.imagemap.filter((image) => image != deleteImage);
     }
 
 }

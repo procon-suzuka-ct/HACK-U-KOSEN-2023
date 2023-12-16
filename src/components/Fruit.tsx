@@ -2,6 +2,10 @@ import useImage from 'use-image';
 import {Image} from 'react-konva';
 /*フルーツの画像をインポート*/
 import react from '../assets/react.svg';
+import strawberry from "../assets/fruits/strawberry.png";
+import mango from "../assets/fruits/mango.png";
+import blueberry from "../assets/fruits/blueberry.png";
+import kiwi from "../assets/fruits/kiwi-fruit.png";
 
 type Fruit = {
     name: string;
@@ -11,8 +15,17 @@ type Fruit = {
 function toFruit(name: string) {
     let scr = react;
     switch(name) {
-        case "apple":
-            scr = "";
+        case "strawberry":
+            scr = strawberry;
+            break;
+        case "mango":
+            scr = mango;
+            break;
+        case "blueberry":
+            scr = blueberry;
+            break;
+        case "kiwi":
+            scr = kiwi;
             break;
         default:
             scr = react;
