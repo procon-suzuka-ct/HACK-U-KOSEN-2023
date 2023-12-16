@@ -5,7 +5,6 @@ import useImage from 'use-image'
 import cakes_cake from "../assets/cakes/normal.png"
 import cakes_cross from "../assets/cakes/cross.png"
 import cakes_side from "../assets/cakes/side.png"
-import cakes_sponge from "../assets/cakes/sponge.png"
 import sys_background from "../assets/system/background.png"
 import sys_menu from "../assets/system/menu.png"
 import fruit_strawberry from "../assets/fruits/strawberry.png"
@@ -13,8 +12,9 @@ import fruit_mango from "../assets/fruits/mango.png"
 import fruit_blueberry from "../assets/fruits/blueberry.png"
 import fruit_kiwi from "../assets/fruits/kiwi-fruit.png"
 import sys_santa from "../assets/system/christmas_santa_hello.png"
-import sys_hoip from "../assets/system/piping-bag_cream.png"
+import sys_hoip from "../assets/system/cream.png"
 import sys_palette from "../assets/system/paint-palette.png"
+import sys_palette_cake from "../assets/system/palette-cake.png"
 import pen from "../assets/system/pen.png"
 
 function Design() {
@@ -28,9 +28,9 @@ function Design() {
   const [santa] = useImage(sys_santa);
   const [hoip] = useImage(sys_hoip);
   const [palette] = useImage(sys_palette);
+  const [palette_cake] = useImage(sys_palette_cake);
   const [cake] = useImage(cakes_cake);
   const [cross] = useImage(cakes_cross);
-  const [sponge] = useImage(cakes_sponge);
   const [side] = useImage(cakes_side);
   const [pen_] = useImage(pen);
   const width = window.innerWidth;
@@ -117,10 +117,10 @@ function Design() {
         <Text x={0} y={bottom_height - 30 + height10} text="ほいっぷ" fontFamily="sans-serif" fontSize={width/30} fill="black" />
         <Line points={[width10*1.2, bottom_height - height10*0.09 , width10*1.2, bottom_height +height10*0.95]} stroke="#E19191" strokeWidth={width*0.004} />
         <Image image={palette} x={width10 * 1.5} y={bottom_height -30} width={width10 * 0.8} height={height10} />
-        <Text x={width10 * 1.4} y={bottom_height - 30 + height10} text="ほかのいろ" fontFamily="sans-serif" fontSize={width/30} fill="black" />
+        <Text x={width10 * 1.3} y={bottom_height - 30 + height10} text="ほいっぷのいろ" fontFamily="sans-serif" fontSize={width/35} fill="black" />
         <Line points={[width10*2.7, bottom_height - height10*0.09 , width10*2.7, bottom_height +height10*0.95]} stroke="#E19191" strokeWidth={width*0.004} />
-        <Image image={sponge} x={width10 * 2.9} y={bottom_height -30} width={width10 * 0.8} height={height10} />
-        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="すぽんじ" fontFamily="sans-serif" fontSize={width/30} fill="black" />
+        <Image image={palette_cake} x={width10 * 2.9} y={bottom_height -30} width={width10 * 0.8} height={height10} />
+        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width/30} fill="black" />
       </Layer>
       <Layer>
         <Image image={cake} x={width10/2} y={height10*2} width={width/1.3} height={width/1.3}/>
