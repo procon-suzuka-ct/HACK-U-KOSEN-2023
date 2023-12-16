@@ -45,11 +45,24 @@ export class Drop {
         console.log("onDragOver");
     }
 
+    onClick(e: KonvaEventObject<MouseEvent>, ImageMap: IMAGE[], Fruit: Fruit){
+        const pos = e.target.getStage()?.getPointerPosition();
+        if(pos){
+            const img: IMAGE = {
+                scr: Fruit.scr,
+                x: pos.x,
+                y: pos.y
+            }
+            ImageMap = ImageMap.concat([img]);
+        }
+        return ImageMap;
+    }
+
     RenderImage(ImageMap: IMAGE[]){
         console.log("start RenderImage");
         return (
             ImageMap.map((image) => {
-                return <URLImage img={image} />
+                return <URLImage img={image}/>
             })
         );
         

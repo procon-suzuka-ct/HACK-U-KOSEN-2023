@@ -1,11 +1,9 @@
-import styles from './Test.module.scss';
 import {useState} from 'react';
-import { toFruit, toImage,toImg } from '../components/Fruit';
+import { toFruit, toImg } from '../components/Fruit';
 import {Drop} from './RenderImage';
 import { Image, Stage, Layer, Text, Rect } from 'react-konva';
-import Drow from './Drow';
 import {IMAGE} from './RenderImage';
-import { KonvaEventObject } from 'konva/lib/Node';
+import react from '../assets/react.svg';
 // １つ目のStageしか描画されない。=>仕様
 // Drow, RenderImage関数をクラスで返すようにする。
 
@@ -33,6 +31,9 @@ const Test = () => {
             y={0}
             width={window.innerWidth}
             height={900}
+            onClick={(e) => {
+                setImg(fD.onClick(e, img, toFruit("react")));
+            }}
         >
           <Layer>
             {
