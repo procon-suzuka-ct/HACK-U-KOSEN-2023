@@ -17,7 +17,7 @@ function ColorPopup(x: number, y: number){
             <Rect onClick={() => {setColor("green");}} x={Number(pos?.x) + 110} y={Number(pos?.y)-100} width={50} height={45} cornerRadius={10} fill="green" />
             <Rect onClick={() => {setColor("cyan");}} x={Number(pos?.x) - 10} y={Number(pos?.y)-50} width={50} height={45} cornerRadius={10} fill="cyan" />
             <Rect onClick={() => {setColor("blue");}} x={Number(pos?.x) + 50} y={Number(pos?.y)-50} width={50} height={45} cornerRadius={10} fill="blue" />
-            <Rect onClick={() => {setColor("black");}} x={Number(pos?.x) + 110} y={Number(pos?.y)-50} width={50} height={45} cornerRadius={10} fill="black" />
+            <Rect onClick={() => {setColor("yellow");}} x={Number(pos?.x) + 110} y={Number(pos?.y)-50} width={50} height={45} cornerRadius={10} fill="black" />
         </Layer>
     );
 }
