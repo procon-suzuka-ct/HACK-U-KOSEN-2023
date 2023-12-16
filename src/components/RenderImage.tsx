@@ -10,108 +10,71 @@ type IMAGE = {
     scr: string;
     x: number;
     y: number;
+};
+
+function URLImage({img}:any)
+{
+    const [i] = useImage(img.scr);
+    return <Image image={i} x={img.x} y={img.y} />
 }
 
-// <image>タグを使ってドラッグした場合。
-const RenderImage = () => {
-    const [imagemap, setImagemap] = React.useState<IMAGE[]>([]);
+export class Drop {
 
-    React.useEffect(() => {
-        console.log("setImagemap", imagemap)
-    }, [imagemap]);
-
-    /*
-    // <img>タグを使ってドラッグした場合。
-    const onDrop = (e: React.DragEvent<HTMLDivElement>): void => {
+    constructor() {};
+    
+    onDrop(e: React.DragEvent<HTMLDivElement>, ImageMap: IMAGE[]){
         console.log("onDrop");
         e.preventDefault();
         const fruit_name = e.dataTransfer.getData("fruit");
-        
-        const fruit = F.toFruit(fruit_name);
-        const image: IMAGE = {
+        const fruit = toFruit(fruit_name);
+        const img: IMAGE = {
             scr: fruit.scr,
             x: e.screenX,
             y: e.screenY
         }
         // imagemapに追加
-        console.log(image, imagemap);
-        setImagemap([...imagemap, image]);
+        console.log(img, ImageMap);
+        ImageMap = ImageMap.concat([img]);
         e.dataTransfer.clearData();
-    }
-    */
-
-    const onDrop = (e: KonvaEventObject<DragEvent>) => {
-        console.log("onDrop");
-        e.evt.preventDefault();
-        const data = e.target.getAttrs();
-
-        const fruit: Fruit = data.Fruit;
-        const width: number = data.width;
-        const height: number = data.height;
-
-        const image: IMAGE = {
-            scr: fruit.scr,
-            x: e.evt.screenX,
-            y: e.evt.screenY
-        }
-
-        // imagemapに追加
-        console.log(image, imagemap);
-        setImagemap([...imagemap, image]);
-
+        console.log("canDrop");
+        return ImageMap;
     }
 
-    const onDragOver = (e: KonvaEventObject<DragEvent>) => {
-        e.evt.preventDefault();
+    onDragOver(e: React.DragEvent<HTMLDivElement>){
+        e.preventDefault();
         console.log("onDragOver");
     }
 
-    const DroppedImage = () => {
+    RenderImage(ImageMap: IMAGE[]){
+        console.log("start RenderImage");
         return (
-            imagemap.map((image) => {
-                const [fruitImage] = useImage(image.scr);
-                return <Image image={fruitImage} x={image.x} y={image.y} />
+            ImageMap.map((image) => {
+                return <URLImage img={image} />
             })
         );
+        
     }
 
     //最後の要素を削除
-    const RemoveImage = () => {
-        setImagemap([...imagemap.slice(0, imagemap.length - 1)])
+    RemoveImage(ImageMap: IMAGE[]){
+        ImageMap = ImageMap.slice(0, ImageMap.length -1)
+        return ImageMap;
     }
 
     //最も座標が近い要素を削除
-    const DeleteImage = (x: number, y: number) => {
+    DeleteImage(ImageMap:IMAGE[], x: number, y: number){
         let deleteImage: IMAGE;
         let deleteDistance: number;
-        imagemap.map((image) => {
+        ImageMap.map((image) => {
             if (deleteDistance > Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y))) {
                 deleteDistance = Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y));
                 deleteImage = image;
             }
         });
-        setImagemap([...imagemap.filter((image) => image != deleteImage)]);
+        ImageMap = ImageMap.filter((image) => image != deleteImage);
+        return ImageMap;
     }
 
-    return (
-        <Stage
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            width={window.innerWidth}
-            height={window.innerHeight}
-            x={0}
-            y={1500}
-        >
-            <Layer>
-                <DroppedImage />
-            </Layer>
-            <Layer>
-                <Rect fill='red' x={100} y={100} width={300} height={200} />
-            </Layer>
-        </Stage>
-    )
 }
 
-
-export default RenderImage;
 export type { IMAGE };

@@ -5,16 +5,24 @@ import {Image} from 'react-konva';
 import react from '../assets/react.svg';
 
 type Cake = {
-    name: string,
-    taste: string,
-    scr: string,
-    into_fruit: Fruit,
+    base: string,
+    surface: string,
 }
 
-function searchImg(name: string): string{
+function searchImg(cake?: Cake, base?: string, surface?: string): string{
+    let name:string = "";
+    if(base && surface)
+    {
+         name = base + '.' + surface;
+    }else if(cake){
+        name = cake.base + '.' + cake.surface;
+        
+    }
+
     let scr = react;
+    
     switch(name){
-        case "apple.chocolate":
+        case "normal.chocolate":
             scr = "";
             break;
         default:
@@ -24,42 +32,19 @@ function searchImg(name: string): string{
     return scr;
 }
 
-function toCake(fruit: Fruit, taste: string): Cake{
-    let name = fruit.name + '.' + taste;
-    let scr = searchImg(name);
-    return {
-        name: name,
-        taste: taste,
-        scr: scr,
-        into_fruit: fruit
-    }
-}
-
-function FruitNameToCake(fruitname:string, taste: string): Cake{
-    let name = fruitname + '.' + taste;
-    let scr = searchImg(name);
-    const fruit = toFruit(fruitname);
-    return {
-        name: name,
-        taste: taste,
-        scr: scr,
-        into_fruit: fruit
-    }
-}
 
 function toImg(cake: Cake, width?:number, height?:number) {
     return (
         <img 
-            src={cake.scr}
-            alt={cake.name}
+            src={searchImg(cake)}
             width={width}
             height={height}
         />
     );
 }
 
-function toImage(fruit: Fruit, x:number, y:number, width?:number, height?:number) {
-    const [image] = useImage(fruit.scr);
+function toImage(cake: Cake, x:number, y:number, width?:number, height?:number) {
+    const [image] = useImage(searchImg(cake));
     return (
         <Image
             image={image}
@@ -71,5 +56,5 @@ function toImage(fruit: Fruit, x:number, y:number, width?:number, height?:number
     );
 }
 
-export {toCake, FruitNameToCake, toImg, toImage};
+export {searchImg,toImg, toImage};
 export type {Cake};

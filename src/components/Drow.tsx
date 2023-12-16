@@ -35,8 +35,6 @@ function Drow() {
     } else {
       lastLine.points = lastLine.points.concat([pos.x, pos.y]);
     }
-
-
     lines.splice(lines.length - 1, 1, lastLine);
     setlines(lines.concat());
 
