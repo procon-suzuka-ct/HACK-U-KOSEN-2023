@@ -16,6 +16,7 @@ import sys_hoip from "../assets/system/cream.png";
 import sys_palette from "../assets/system/paint-palette.png";
 import sys_palette_cake from "../assets/system/palette-cake.png";
 import pen from "../assets/system/pen.png";
+import eraser from "../assets/system/eraser.png";
 import { KonvaEventObject } from 'konva/lib/Node';
 
 function Design() {
@@ -31,6 +32,7 @@ function Design() {
   const [palette] = useImage(sys_palette);
   const [palette_cake] = useImage(sys_palette_cake);
   const [pen_] = useImage(pen);
+  const [eraser_] = useImage(eraser);
   const width = window.innerWidth;
   const height = document.body.clientHeight;
   const width10 = width / 7;
@@ -107,7 +109,7 @@ function Design() {
         <Rect fill='orange' x={right_width - (width10 * 0.5)} y={bottom_height - (height10 * 0.5)} width={width10 * 1.5} height={height10 * 1.5} cornerRadius={20} />
         <Image image={santa} x={right_width - (width10 * 0.25)} y={bottom_height - (height10 * 0.4)} width={width10} height={height10} />
         <Text x={right_width - (width10 * 0.45)} y={bottom_height + (height10 * 0.55)} text="かんせい" fontFamily="sans-serif" fontSize={width10 * 0.35} fill="black" />
-        <Rect x={0} y={bottom_height - 20} width={width10 * 5} height={height10 + 30} cornerRadius={20} fill='pink' />
+        <Rect x={0} y={bottom_height - 20} width={width10 * 5.3} height={height10 + 30} cornerRadius={20} fill='pink' />
 
         <Image onClick={() => { setTool("hoip") }} image={hoip} x={0} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={0} y={bottom_height - 30 + height10} text="ほいっぷ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
@@ -132,7 +134,10 @@ function Design() {
               setBool_cakeColor(true);
           }}
           image={palette_cake} x={width10 * 2.9} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
-        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
+        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
+        <Line points={[width10 * 4.1, bottom_height - height10 * 0.09, width10 * 4.1, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image onClick={() => { setTool("eraser") }} image={eraser_} x={width10 * 4.3} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
+        <Text x={width10 * 4.45} y={bottom_height - 35 + height10} text="けす" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
       </Layer>
       <Layer onClick={(e: KonvaEventObject<MouseEvent>) => {
           console.log("onclick");
