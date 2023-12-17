@@ -16,10 +16,13 @@
     "@nanostores/react": "^0.7.1",
     "firebase": "^10.7.1",
     "nanostores": "^0.9.5",
+    "konva": "^9.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-konva": "^18.2.10",
     "react-router-dom": "^6.20.1",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "use-image": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
