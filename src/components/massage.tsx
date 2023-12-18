@@ -1,36 +1,40 @@
-import React from 'react';
-import { Stage, Layer, Line, Text } from 'react-konva';
+import { Layer, Line, Text } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { useState } from 'react';
 
-const Drow = () => {
-  const [tool, setTool] = React.useState('pen');
-  const [lines, setLines] = React.useState<line[]>([]);
-  const [color, setColor] = useState("black");
-  const isDrawing = React.useRef(false);
+type line = {
+  tool: string;
+  points: number[];
+  color: string;
+};
 
-  type line = {
-    tool: string;
-    points: number[]
-  };
+export class Paint {
+lines: line[];
+isDrawing: Boolean;
+color: string;
 
-  const handleMouseDown = (e: KonvaEventObject<MouseEvent>) => {
-    isDrawing.current = true;
+constructor(l: line[]){
+  this.lines = l;
+  this.isDrawing = false;
+  this.color = "black";
+}
+  
+  handleMouseDown(e: KonvaEventObject<MouseEvent>,tool: string){
+    this.isDrawing = true;
     const pos = e.target.getStage()?.getPointerPosition();
     if (pos === undefined || pos === null) {
       console.log("pos is undefined || null");
     } else {
-      setLines([...lines, { tool, points: [pos.x, pos.y] }]);
+      this.lines = this.lines.concat([{tool: tool, points:[pos.x, pos.y], color: this.color}]);
     }
   };
 
-  const handleMouseMove = (e: KonvaEventObject<MouseEvent>) => {
+  handleMouseMove(e: KonvaEventObject<MouseEvent>){
     // no drawing - skipping
-    if (!isDrawing.current) {
+    if (!this.isDrawing) {
       return;
     }
     const pos = e.target.getStage()?.getPointerPosition();
-    let lastLine = lines[lines.length - 1];
+    let lastLine = this.lines[this.lines.length - 1];
     
     if (pos === undefined || pos === null) {
       console.log("pos is undefined || null");
@@ -38,34 +42,27 @@ const Drow = () => {
       lastLine.points = lastLine.points.concat([pos.x, pos.y]);
     }
 
-    lines.splice(lines.length - 1, 1, lastLine);
-    setLines(lines.concat());
+    this.lines.splice(this.lines.length - 1, 1, lastLine);
+    this.lines = this.lines.concat();
   };
 
-  const handleMouseUp = () => {
-    isDrawing.current = false;
+  handleMouseUp(){
+    this.isDrawing = false;
   };
 
-  const colorChange = (color: string) => {
-    setColor(color);
-  }
+  colorChange(color: string){
+    this.color = color;
+  };
 
-  return (
-    <div>
-      <Stage
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onMouseDown={handleMouseDown}
-        onMousemove={handleMouseMove}
-        onMouseup={handleMouseUp}
-      >
+
+  render(){
         <Layer>
           <Text text="Just start drawing" x={5} y={30} />
-          {lines.map((line, i) => (
+          {this.lines.map((line, i) => (
             <Line
               key={i}
               points={line.points}
-              stroke={color}
+              stroke={this.color}
               strokeWidth={5}
               tension={0.5}
               lineCap="round"
@@ -76,18 +73,8 @@ const Drow = () => {
             />
           ))}
         </Layer>
-      </Stage>
-      <select
-        value={tool}
-        onChange={(e) => {
-          setTool(e.target.value);
-        }}
-      >
-        <option value="pen">Pen</option>
-        <option value="eraser">Eraser</option>
-      </select>
-    </div>
-  );
-};
+      }
+    }
 
-export default Drow;
+
+export default Paint;
