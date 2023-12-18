@@ -19,6 +19,7 @@ import pen from "../assets/system/pen.png";
 import eraser from "../assets/system/eraser.png";
 import arrow from "../assets/system/yajirushi.png";
 import { KonvaEventObject } from 'konva/lib/Node';
+import { set } from 'firebase/database';
 
 function Design() {
 
@@ -45,30 +46,16 @@ function Design() {
   const bottom_height = height - height10;
 
   const [bool_menu, setBool_menu] = useState(false);
+  const [bool_penColor, setBool_penColor] = useState(false);
   const [bool_hoipColor, setBool_hoipColor] = useState(false);
   const [bool_cakeColor, setBool_cakeColor] = useState(false);
-
+  const [penColor, setPenColor] = useState("black");
   const [cakeColor, setCakeColor] = useState("normal");
   const [hoipColor, setHoipColor] = useState("white");
   const [img, setImg] = useState<IMAGE[]>([]);
   const [tool, setTool] = useState<string>("pen");
   const fD = new RenderImage(img);
 
-  useEffect(() => {
-    setBool_cakeColor(false);
-  }, [cakeColor]);
-
-  useEffect(() => {
-    setBool_hoipColor(false);
-  }, [hoipColor]);
-  useEffect(() => {
-      if(tool == "eraser")
-      {
-        fD.now_erase_ = true;
-      }else{
-        fD.now_erase_ = false;
-      }
-  }, [tool])
   return (
     <Stage width={window.innerWidth} height={window.innerHeight} >
       <Layer >
@@ -125,19 +112,24 @@ function Design() {
         <Text x={right_width - (width10 * 0.45)} y={bottom_height + (height10 * 0.55)} text="かんせい" fontFamily="sans-serif" fontSize={width10 * 0.35} fill="black" />
         <Rect x={0} y={bottom_height - 20} width={width10 * 5.3} height={height10 + 30} cornerRadius={20} fill='pink' />
 
-        <Image onClick={() => { setTool("hoip") }} image={hoip} x={0} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
+        <Image onClick={() => {
+          if(bool_hoipColor == true)
+           setBool_hoipColor(false);
+          else
+            setBool_hoipColor(true);
+        }} image={hoip} x={0} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={0} y={bottom_height - 30 + height10} text="ほいっぷ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
         <Line points={[width10 * 1.2, bottom_height - height10 * 0.09, width10 * 1.2, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
 
         <Image
           onClick={() => {
-            if (bool_hoipColor == true)
-              setBool_hoipColor(false);
+            if (bool_penColor == true)
+              setBool_penColor(false);
             else
-              setBool_hoipColor(true);
+              setBool_penColor(true);
           }}
           image={palette} x={width10 * 1.5} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
-        <Text x={width10 * 1.3} y={bottom_height - 30 + height10} text="ほいっぷのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
+        <Text x={width10 * 1.3} y={bottom_height - 30 + height10} text="えんぴつのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
         <Line points={[width10 * 2.7, bottom_height - height10 * 0.09, width10 * 2.7, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
 
         <Image
@@ -150,6 +142,7 @@ function Design() {
           image={palette_cake} x={width10 * 2.9} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
         <Line points={[width10 * 4.1, bottom_height - height10 * 0.09, width10 * 4.1, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
+        
         <Image onClick={() => {
           console.log("onclick");
           fD.RemoveImage();
@@ -159,10 +152,12 @@ function Design() {
       </Layer>
       <Layer onClick={(e: KonvaEventObject<MouseEvent>) => {
           console.log("onclick");
+          fD.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
             fD.onClick(e, toFruit(tool));
             setImg(fD.imagemap);
           }else if(tool == "eraser"){
+            fD.now_erase_ = true;
             console.log("eraser");
             fD.DeleteImage(e);
             setImg(fD.imagemap);
@@ -175,31 +170,42 @@ function Design() {
           fD.RenderImage()
         }
       </Layer>
-
       {bool_hoipColor &&
+        <Layer>
+          <Rect x={0} y={bottom_height - 220} width={200} height={200} fill="#ffe9ab" cornerRadius={20} stroke={"#63beff"} />
+          <Text x={15} y={bottom_height - 210} text="いろをえらんでね" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
+          <Rect onClick={() => { setTool("cream_chocolate"); setBool_hoipColor(false); }} x={15} y={bottom_height - 180} width={75} height={45} cornerRadius={10} fill="#7B3F00" />
+          <Text x={115} y={bottom_height - 170} text="チョコ" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
+          <Rect onClick={() => { setTool("cream_strawberry"); setBool_hoipColor(false); }} x={15} y={bottom_height - 130} width={75} height={45} cornerRadius={10} fill="#b45460" />
+          <Text x={115} y={bottom_height - 120} text="いちご" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
+          <Rect onClick={() => { setTool("cream_normal"); setBool_hoipColor(false); }} x={15} y={bottom_height - 80} width={75} height={45} cornerRadius={10} fill="white" />
+          <Text x={115} y={bottom_height - 70} text="ふつう" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
+        </Layer>
+      }
+      {bool_penColor &&
         <Layer>
           <Rect x={width10 * 1.5 - 25} y={bottom_height - 220} width={200} height={200} fill="#fffbf0" cornerRadius={20} stroke={"#63beff"} />
           <Text x={width10 * 1.5 - 10} y={bottom_height - 210} text="いろをえらんでね" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
-          <Rect onClick={() => { setHoipColor("red"); }} x={width10 * 1.5 - 10} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="red" />
-          <Rect onClick={() => { setHoipColor("pink"); }} x={width10 * 1.5 + 50} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="pink" />
-          <Rect onClick={() => { setHoipColor("orange"); }} x={width10 * 1.5 + 110} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="orange" />
-          <Rect onClick={() => { setHoipColor("yellow"); }} x={width10 * 1.5 - 10} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="yellow" />
-          <Rect onClick={() => { setHoipColor("yellowgreen"); }} x={width10 * 1.5 + 50} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="yellowgreen" />
-          <Rect onClick={() => { setHoipColor("green"); }} x={width10 * 1.5 + 110} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="green" />
-          <Rect onClick={() => { setHoipColor("cyan"); }} x={width10 * 1.5 - 10} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="cyan" />
-          <Rect onClick={() => { setHoipColor("blue"); }} x={width10 * 1.5 + 50} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="blue" />
-          <Rect onClick={() => { setHoipColor("yellow"); }} x={width10 * 1.5 + 110} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="black" />
+          <Rect onClick={() => { setPenColor("red"); setBool_penColor(false); }} x={width10 * 1.5 - 10} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="red" />
+          <Rect onClick={() => { setPenColor("pink"); setBool_penColor(false);}} x={width10 * 1.5 + 50} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="pink" />
+          <Rect onClick={() => { setPenColor("orange"); setBool_penColor(false);}} x={width10 * 1.5 + 110} y={bottom_height - 180} width={50} height={45} cornerRadius={10} fill="orange" />
+          <Rect onClick={() => { setPenColor("yellow"); setBool_penColor(false);}} x={width10 * 1.5 - 10} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="yellow" />
+          <Rect onClick={() => { setPenColor("yellowgreen"); setBool_penColor(false);}} x={width10 * 1.5 + 50} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="yellowgreen" />
+          <Rect onClick={() => { setPenColor("green"); setBool_penColor(false);}} x={width10 * 1.5 + 110} y={bottom_height - 130} width={50} height={45} cornerRadius={10} fill="green" />
+          <Rect onClick={() => { setPenColor("cyan"); setBool_penColor(false);}} x={width10 * 1.5 - 10} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="cyan" />
+          <Rect onClick={() => { setPenColor("blue"); setBool_penColor(false);}} x={width10 * 1.5 + 50} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="blue" />
+          <Rect onClick={() => { setPenColor("yellow"); setBool_penColor(false);}} x={width10 * 1.5 + 110} y={bottom_height - 80} width={50} height={45} cornerRadius={10} fill="black" />
         </Layer>
       }
-      {bool_cakeColor &&
+      { bool_cakeColor &&
         <Layer>
           <Rect x={width10 * 2.9 - 25} y={bottom_height - 220} width={200} height={200} fill="#ffe9ab" cornerRadius={20} stroke={"#63beff"} />
           <Text x={width10 * 2.9 - 10} y={bottom_height - 210} text="いろをえらんでね" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
-          <Rect onClick={() => { setCakeColor("chocolate"); }} x={width10 * 2.9 - 10} y={bottom_height - 180} width={75} height={45} cornerRadius={10} fill="#7B3F00" />
+          <Rect onClick={() => { setCakeColor("chocolate"); setBool_cakeColor(false);}} x={width10 * 2.9 - 10} y={bottom_height - 180} width={75} height={45} cornerRadius={10} fill="#7B3F00" />
           <Text x={width10 * 2.9 + 80} y={bottom_height - 170} text="チョコ" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
-          <Rect onClick={() => { setCakeColor("strawberry"); }} x={width10 * 2.9 - 10} y={bottom_height - 130} width={75} height={45} cornerRadius={10} fill="#b45460" />
+          <Rect onClick={() => { setCakeColor("strawberry"); setBool_cakeColor(false);}} x={width10 * 2.9 - 10} y={bottom_height - 130} width={75} height={45} cornerRadius={10} fill="#b45460" />
           <Text x={width10 * 2.9 + 80} y={bottom_height - 120} text="いちご" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
-          <Rect onClick={() => { setCakeColor("normal"); }} x={width10 * 2.9 - 10} y={bottom_height - 80} width={75} height={45} cornerRadius={10} fill="white" />
+          <Rect onClick={() => { setCakeColor("normal"); setBool_cakeColor(false);}} x={width10 * 2.9 - 10} y={bottom_height - 80} width={75} height={45} cornerRadius={10} fill="white" />
           <Text x={width10 * 2.9 + 80} y={bottom_height - 70} text="ふつう" fontStyle='bold' fontFamily="sans-serif" fontSize={20} fill="black" />
         </Layer>
       }

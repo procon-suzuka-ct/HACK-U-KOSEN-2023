@@ -10,11 +10,25 @@ type IMAGE = {
     scr: string;
     x: number;
     y: number;
+    width: number;
+    height: number;
 };
 
 function URLImage({ img }: any) {
     const [i] = useImage(img.scr);
-    return <Image image={i} x={img.x} y={img.y} width={200} height={200} name={img.id} draggable />
+    return <Image 
+                image={i}
+                x={img.x}
+                y={img.y}
+                width={img.width}
+                height={img.height}
+                name={String(img.id)}
+                draggable
+                onDragEnd={(e) => {
+                    img.x = e.target.x();
+                    img.y = e.target.y();
+                }}
+             />
 }
 
 export class RenderImage {
@@ -59,7 +73,9 @@ export class RenderImage {
                 id: pos.x + pos.y,
                 scr: Fruit.scr,
                 x: pos.x,
-                y: pos.y
+                y: pos.y,
+                width: Fruit.width,
+                height: Fruit.height
             }
             this.imagemap = this.imagemap.concat([img]);
         }
@@ -69,9 +85,7 @@ export class RenderImage {
         console.log("start RenderImage");
         return (
             this.imagemap.map((image) => {
-                return <URLImage img={image} onClick={() => {
-                    this.DeleteImage;
-                }} />
+                return <URLImage img={image}/>
             })
         );
 
@@ -93,6 +107,7 @@ export class RenderImage {
             //remove from the list:
             this.imagemap = this.imagemap.filter((_, i) => i !== index);
         }
+        console.log(this.now_erase_);
     };
 
 }
