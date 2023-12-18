@@ -19,8 +19,23 @@ function App() {
         <Route path={"/finish"} element={<Finish/>}/>
         <Route path={"/change"} element={<Change/>}/>
       </Routes>
+import Template from "./Template.tsx";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Template>
+        <Routes>
+          <Route path={"/"} element={<Home/>}/>
+          <Route path={"/payment"} element={<Payment/>}/>
+          <Route path={"/design"} element={<Design/>}/>
+          <Route path={"/login"} element={<Login/>}/>
+          <Route path={"/confirmation"} element={<Confirmation/>}/>
+          <Route path={"/finish"} element={<Finish/>}/>
+        </Routes>
+      </Template>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;
