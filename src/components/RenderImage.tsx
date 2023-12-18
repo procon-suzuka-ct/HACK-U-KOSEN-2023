@@ -6,25 +6,29 @@ import { KonvaEventObject } from 'konva/lib/Node';
 // このファイルを読み込むとエラーが発生する。
 
 type IMAGE = {
+    id: number;
     scr: string;
     x: number;
     y: number;
 };
 
-function URLImage({img}:any)
-{
+function URLImage({ img }: any) {
     const [i] = useImage(img.scr);
-    return <Image image={i} x={img.x} y={img.y} width={200} height={200} />
+    return <Image image={i} x={img.x} y={img.y} width={200} height={200} name={img.id} draggable />
 }
 
 export class RenderImage {
+    now_erase_ = false;
     imagemap: IMAGE[] = [];
 
     constructor(imgmap: IMAGE[]) {
+        this.now_erase_ = false;
         this.imagemap = imgmap;
     };
-    
-    
+
+    /*
+    通常のhtmlタグでのドラッグアンドドロップなので、使用しない。
+
     onDrop(e: React.DragEvent<HTMLDivElement>){
         console.log("onDrop");
         e.preventDefault();
@@ -45,12 +49,14 @@ export class RenderImage {
     onDragOver(e: React.DragEvent<HTMLDivElement>){
         e.preventDefault();
         console.log("onDragOver");
-    }
+    }*/
 
-    onClick(e: KonvaEventObject<MouseEvent>, Fruit: Fruit){
+    onClick(e: KonvaEventObject<MouseEvent>, Fruit: Fruit) {
         const pos = e.target.getStage()?.getPointerPosition();
-        if(pos){
+        console.log(pos);
+        if (pos) {
             const img: IMAGE = {
+                id: pos.x + pos.y,
                 scr: Fruit.scr,
                 x: pos.x,
                 y: pos.y
@@ -59,33 +65,35 @@ export class RenderImage {
         }
     }
 
-    RenderImage(){
+    RenderImage() {
         console.log("start RenderImage");
         return (
             this.imagemap.map((image) => {
-                return <URLImage img={image}/>
+                return <URLImage img={image} onClick={() => {
+                    this.DeleteImage;
+                }} />
             })
         );
-        
+
     }
 
     //最後の要素を削除
-    RemoveImage(){
-        this.imagemap = this.imagemap.slice(0, this.imagemap.length -1);
+    RemoveImage() {
+        this.imagemap = this.imagemap.slice(0, this.imagemap.length - 1);
     }
 
-    //最も座標が近い要素を削除
-    DeleteImage(x: number, y: number){
-        let deleteImage: IMAGE;
-        let deleteDistance: number;
-        this.imagemap.map((image) => {
-            if (deleteDistance > Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y))) {
-                deleteDistance = Math.sqrt(Math.pow(2, x - image.x) + Math.pow(2, y - image.y));
-                deleteImage = image;
-            }
-        });
-        this.imagemap = this.imagemap.filter((image) => image != deleteImage);
-    }
+    //クリックした要素を削除
+    DeleteImage(e: KonvaEventObject<MouseEvent>) {
+        if (this.now_erase_) {
+            const id = Number(e.target.name());
+            const item = this.imagemap.find((i) => i.id == id);
+            if (!item) { return; }
+            console.log(item);
+            const index = this.imagemap.indexOf(item);
+            //remove from the list:
+            this.imagemap = this.imagemap.filter((_, i) => i !== index);
+        }
+    };
 
 }
 

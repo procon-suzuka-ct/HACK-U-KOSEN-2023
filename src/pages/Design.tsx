@@ -61,7 +61,14 @@ function Design() {
   useEffect(() => {
     setBool_hoipColor(false);
   }, [hoipColor]);
-
+  useEffect(() => {
+      if(tool == "eraser")
+      {
+        fD.now_erase_ = true;
+      }else{
+        fD.now_erase_ = false;
+      }
+  }, [tool])
   return (
     <Stage width={window.innerWidth} height={window.innerHeight} >
       <Layer >
@@ -152,8 +159,12 @@ function Design() {
       </Layer>
       <Layer onClick={(e: KonvaEventObject<MouseEvent>) => {
           console.log("onclick");
-          if (tool != "pen" && tool != "hoip") {
+          if (tool != "pen" && tool != "hoip" && tool != "eraser") {
             fD.onClick(e, toFruit(tool));
+            setImg(fD.imagemap);
+          }else if(tool == "eraser"){
+            console.log("eraser");
+            fD.DeleteImage(e);
             setImg(fD.imagemap);
           }
         }}>
