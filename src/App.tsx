@@ -5,6 +5,8 @@ import Payment from "./pages/Payment.tsx";
 import Design from "./pages/Design.tsx";
 import Login from "./pages/Login.tsx";
 import Template from "./Template.tsx";
+import Confirmation from "./pages/Confirmation.tsx";
+import Change from "./pages/Finish.tsx";
 
 function App() {
   return (
@@ -16,7 +18,7 @@ function App() {
           <Route path={"/design"} element={<Design/>}/>
           <Route path={"/login"} element={<Login/>}/>
           <Route path={"/confirmation"} element={<Confirmation/>}/>
-          <Route path={"/finish"} element={<Finish/>}/>
+          <Route path={"/finish"} element={<Change/>}/>
         </Routes>
       </Template>
     </BrowserRouter>

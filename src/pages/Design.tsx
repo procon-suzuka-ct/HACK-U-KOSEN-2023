@@ -143,7 +143,11 @@ function Design() {
           image={palette_cake} x={width10 * 2.9} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
         <Line points={[width10 * 4.1, bottom_height - height10 * 0.09, width10 * 4.1, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
-        <Image  image={arrow_} x={width10 * 4.3} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
+        <Image onClick={() => {
+          console.log("onclick");
+          fD.RemoveImage();
+          setImg(fD.imagemap);
+          }}  image={arrow_} x={width10 * 4.3} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={width10 * 4.45} y={bottom_height - 35 + height10} text="もどす" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
       </Layer>
       <Layer onClick={(e: KonvaEventObject<MouseEvent>) => {
