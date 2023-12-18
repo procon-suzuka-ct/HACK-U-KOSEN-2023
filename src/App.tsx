@@ -6,6 +6,7 @@ import Design from "./pages/Design.tsx";
 import Login from "./pages/Login.tsx";
 import Confirmation from "./pages/Confirmation.tsx";
 import Finish from "./pages/finish.tsx";
+import Change from "./pages/Change.tsx";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
         <Route path={"/login"} element={<Login/>}/>
         <Route path={"/confirmation"} element={<Confirmation/>}/>
         <Route path={"/finish"} element={<Finish/>}/>
+        <Route path={"/change"} element={<Change/>}/>
       </Routes>
     </BrowserRouter>
   )
