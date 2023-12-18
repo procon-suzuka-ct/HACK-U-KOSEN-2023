@@ -7,19 +7,6 @@ import Login from "./pages/Login.tsx";
 import Confirmation from "./pages/Confirmation.tsx";
 import Finish from "./pages/finish.tsx";
 import Change from "./pages/Change.tsx";
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/"} element={<Home/>}/>
-        <Route path={"/payment"} element={<Payment/>}/>
-        <Route path={"/design"} element={<Design/>}/>
-        <Route path={"/login"} element={<Login/>}/>
-        <Route path={"/confirmation"} element={<Confirmation/>}/>
-        <Route path={"/finish"} element={<Finish/>}/>
-        <Route path={"/change"} element={<Change/>}/>
-      </Routes>
-import Template from "./Template.tsx";
 
 function App() {
   return (
@@ -32,6 +19,7 @@ function App() {
           <Route path={"/login"} element={<Login/>}/>
           <Route path={"/confirmation"} element={<Confirmation/>}/>
           <Route path={"/finish"} element={<Finish/>}/>
+          <Route path={"/change"} element={<Change/>}/>
         </Routes>
       </Template>
     </BrowserRouter>
