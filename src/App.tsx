@@ -15,6 +15,8 @@ function App() {
           <Route path={"/payment"} element={<Payment/>}/>
           <Route path={"/design"} element={<Design/>}/>
           <Route path={"/login"} element={<Login/>}/>
+          <Route path={"/confirmation"} element={<Confirmation/>}/>
+          <Route path={"/finish"} element={<Finish/>}/>
         </Routes>
       </Template>
     </BrowserRouter>

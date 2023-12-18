@@ -16,6 +16,8 @@ import sys_hoip from "../assets/system/cream.png";
 import sys_palette from "../assets/system/paint-palette.png";
 import sys_palette_cake from "../assets/system/palette-cake.png";
 import pen from "../assets/system/pen.png";
+import eraser from "../assets/system/eraser.png";
+import arrow from "../assets/system/yajirushi.png";
 import { KonvaEventObject } from 'konva/lib/Node';
 
 function Design() {
@@ -31,6 +33,8 @@ function Design() {
   const [palette] = useImage(sys_palette);
   const [palette_cake] = useImage(sys_palette_cake);
   const [pen_] = useImage(pen);
+  const [eraser_] = useImage(eraser);
+  const [arrow_]=useImage(arrow);
   const width = window.innerWidth;
   const height = document.body.clientHeight;
   const width10 = width / 7;
@@ -81,33 +85,38 @@ function Design() {
           toImage({ direction: "side", surface: cakeColor }, width10 * 1.7, 0, width10 * 1.3, height10 * 1.3)
         }
         <Text x={width10 * 2.1} y={height10 * 1.5} text="よこ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
-        <Rect fill='pink' x={right_width} y={height10 * 1.80} width={width10} height={height10 * 6.45} cornerRadius={30} />
+        <Rect fill='pink' x={right_width} y={height10 * 1.6} width={width10} height={height10 * 6.8} cornerRadius={30} />
 
         <Text x={width10 * 3.25} y={0} text={"ツール:" + tool} fontFamily="sans-serif" fontSize={width / 30} fill="black" />
 
-        <Image onClick={() => { setTool("strawberry") }} image={strawberry} x={right_width} y={height10 * 2.00} width={width10} height={height10} />
-        <Text x={right_width * 1.02} y={height10 * 2.8} text="いちご" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
-        <Line points={[right_width * 1.015, height10 * 3.3, right_width + width10 * 0.9, height10 * 3.3]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image onClick={() => { setTool("strawberry") }} image={strawberry} x={right_width} y={height10 * 1.50} width={width10} height={height10} />
+        <Text x={right_width * 1.02} y={height10 * 2.4} text="いちご" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
+        <Line points={[right_width * 1.015, height10 * 2.8, right_width + width10 * 0.9, height10 * 2.8]} stroke="#E19191" strokeWidth={width * 0.004} />
 
-        <Image onClick={() => { setTool("mango") }} image={mango} x={right_width} y={height10 * 3.25} width={width10} height={height10} />
-        <Text x={right_width * 1.01} y={height10 * 4.15} text="まんごー" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
-        <Line points={[right_width * 1.015, height10 * 4.6, right_width + width10 * 0.9, height10 * 4.6]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image onClick={() => { setTool("mango") }} image={mango} x={right_width} y={height10 * 2.7} width={width10} height={height10} />
+        <Text x={right_width * 1.01} y={height10 * 3.5} text="まんごー" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
+        <Line points={[right_width * 1.015, height10 * 3.95, right_width + width10 * 0.9, height10 * 3.95]} stroke="#E19191" strokeWidth={width * 0.004} />
 
-        <Image onClick={() => { setTool("blueberry") }} image={blueberry} x={right_width} y={height10 * 4.50} width={width10} height={height10} />
-        <Text x={right_width} y={height10 * 5.40} text="ぶるーべりー" fontFamily="sans-serif" fontSize={width / 40} fill="black" />
-        <Line points={[right_width * 1.015, height10 * 5.85, right_width + width10 * 0.9, height10 * 5.85]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image onClick={() => { setTool("blueberry") }} image={blueberry} x={right_width} y={height10 * 3.8} width={width10} height={height10} />
+        <Text x={right_width} y={height10 * 4.6} text="ぶるーべりー" fontFamily="sans-serif" fontSize={width / 40} fill="black" />
+        <Line points={[right_width * 1.015, height10 * 5, right_width + width10 * 0.9, height10 * 5]} stroke="#E19191" strokeWidth={width * 0.004} />
 
-        <Image onClick={() => { setTool("kiwi") }} image={kiwi} x={right_width} y={height10 * 5.75} width={width10} height={height10} />
-        <Text x={right_width * 1.02} y={height10 * 6.75} text="きうい" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
-        <Line points={[right_width * 1.015, height10 * 7.1, right_width + width10 * 0.9, height10 * 7.1]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image onClick={() => { setTool("kiwi") }} image={kiwi} x={right_width} y={height10 * 4.95} width={width10} height={height10} />
+        <Text x={right_width * 1.02} y={height10 * 5.9} text="きうい" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
+        <Line points={[right_width * 1.015, height10 * 6.25, right_width + width10 * 0.9, height10 * 6.25]} stroke="#E19191" strokeWidth={width * 0.004} />
 
-        <Image onClick={() => { setTool("pen") }} image={pen_} x={right_width} y={height10 * 7.00} width={width10} height={height10} />
-        <Text x={right_width * 1.02} y={height10 * 8.00} text="えんぴつ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
+        <Image onClick={() => { setTool("pen") }} image={pen_} x={right_width*1.02} y={height10 * 6.2} width={width10*0.8} height={height10*0.8} />
+        <Text x={right_width * 1.02} y={height10 * 7} text="えんぴつ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
+        <Line points={[right_width * 1.015, height10 * 7.35, right_width + width10 * 0.9, height10 * 7.35]} stroke="#E19191" strokeWidth={width * 0.004} />
+        
+
+        <Image onClick={() => { setTool("eraser") }} image={eraser_} x={right_width*1.02} y={height10 * 7.35} width={width10*0.8} height={height10*0.8} />
+        <Text x={right_width * 1.02} y={height10 * 8.15} text="けしごむ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
 
         <Rect fill='orange' x={right_width - (width10 * 0.5)} y={bottom_height - (height10 * 0.5)} width={width10 * 1.5} height={height10 * 1.5} cornerRadius={20} />
         <Image image={santa} x={right_width - (width10 * 0.25)} y={bottom_height - (height10 * 0.4)} width={width10} height={height10} />
         <Text x={right_width - (width10 * 0.45)} y={bottom_height + (height10 * 0.55)} text="かんせい" fontFamily="sans-serif" fontSize={width10 * 0.35} fill="black" />
-        <Rect x={0} y={bottom_height - 20} width={width10 * 5} height={height10 + 30} cornerRadius={20} fill='pink' />
+        <Rect x={0} y={bottom_height - 20} width={width10 * 5.3} height={height10 + 30} cornerRadius={20} fill='pink' />
 
         <Image onClick={() => { setTool("hoip") }} image={hoip} x={0} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
         <Text x={0} y={bottom_height - 30 + height10} text="ほいっぷ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
@@ -132,7 +141,10 @@ function Design() {
               setBool_cakeColor(true);
           }}
           image={palette_cake} x={width10 * 2.9} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
-        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
+        <Text x={width10 * 2.8} y={bottom_height - 30 + height10} text="けーきのいろ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
+        <Line points={[width10 * 4.1, bottom_height - height10 * 0.09, width10 * 4.1, bottom_height + height10 * 0.95]} stroke="#E19191" strokeWidth={width * 0.004} />
+        <Image  image={arrow_} x={width10 * 4.3} y={bottom_height - 30} width={width10 * 0.8} height={height10} />
+        <Text x={width10 * 4.45} y={bottom_height - 35 + height10} text="もどす" fontFamily="sans-serif" fontSize={width / 30} fill="black" />
       </Layer>
       <Layer onClick={(e: KonvaEventObject<MouseEvent>) => {
           console.log("onclick");
