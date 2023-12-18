@@ -1,7 +1,9 @@
 import styles from './Design.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Stage, Layer, Image, Rect, Text, Line } from 'react-konva';
-import { toFruit, toImg } from '../components/Fruit';
+import { KonvaEventObject } from 'konva/lib/Node';
+import Konva from 'konva';
+import { toFruit } from '../components/Fruit';
 import { RenderImage, IMAGE } from '../components/RenderImage';
 import { toImage } from '../components/Cake';
 import useImage from 'use-image';
@@ -18,7 +20,7 @@ import sys_palette_cake from "../assets/system/palette-cake.png";
 import pen from "../assets/system/pen.png";
 import eraser from "../assets/system/eraser.png";
 import arrow from "../assets/system/yajirushi.png";
-import { KonvaEventObject } from 'konva/lib/Node';
+import downloadURI from '../components/DownLoadImage.tsx';
 import { set } from 'firebase/database';
 
 function Design() {
@@ -51,13 +53,24 @@ function Design() {
   const [bool_cakeColor, setBool_cakeColor] = useState(false);
   const [penColor, setPenColor] = useState("black");
   const [cakeColor, setCakeColor] = useState("normal");
-  const [hoipColor, setHoipColor] = useState("white");
   const [img, setImg] = useState<IMAGE[]>([]);
   const [tool, setTool] = useState<string>("pen");
+
+  const stageRef = useRef<Konva.Stage>(null);
+
   const fD = new RenderImage(img);
 
+  const handleOnSubmit = () => {
+    const temp = stageRef.current;
+    if (temp != null) {
+      const dataURL = temp.toDataURL();
+      downloadURI(dataURL, "test.png");
+      console.log(dataURL);
+    }
+  }
+
   return (
-    <Stage width={window.innerWidth} height={window.innerHeight} >
+    <Stage ref={stageRef} width={window.innerWidth} height={window.innerHeight} >
       <Layer >
         <Image image={background} x={0} y={0} width={width} height={height} />
       </Layer>
@@ -108,7 +121,7 @@ function Design() {
         <Text x={right_width * 1.02} y={height10 * 8.15} text="けしごむ" fontFamily="sans-serif" fontSize={width / 35} fill="black" />
 
         <Rect fill='orange' x={right_width - (width10 * 0.5)} y={bottom_height - (height10 * 0.5)} width={width10 * 1.5} height={height10 * 1.5} cornerRadius={20} />
-        <Image image={santa} x={right_width - (width10 * 0.25)} y={bottom_height - (height10 * 0.4)} width={width10} height={height10} />
+        <Image onClick={() => {handleOnSubmit();}} image={santa} x={right_width - (width10 * 0.25)} y={bottom_height - (height10 * 0.4)} width={width10} height={height10} />
         <Text x={right_width - (width10 * 0.45)} y={bottom_height + (height10 * 0.55)} text="かんせい" fontFamily="sans-serif" fontSize={width10 * 0.35} fill="black" />
         <Rect x={0} y={bottom_height - 20} width={width10 * 5.3} height={height10 + 30} cornerRadius={20} fill='pink' />
 

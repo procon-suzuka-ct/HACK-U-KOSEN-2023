@@ -64,7 +64,7 @@ function searchImg(cake?: Cake, direction?: string, surface?: string): string{
     return scr;
 }
 
-
+/*
 function toImg(cake: Cake, width?:number, height?:number) {
     return (
         <img 
@@ -73,7 +73,7 @@ function toImg(cake: Cake, width?:number, height?:number) {
             height={height}
         />
     );
-}
+}*/
 
 function toImage(cake: Cake, x:number, y:number, width?:number, height?:number){
     const [image] = useImage(searchImg(cake));
@@ -88,5 +88,5 @@ function toImage(cake: Cake, x:number, y:number, width?:number, height?:number){
     );
 }
 
-export {searchImg,toImg, toImage};
+export {searchImg, toImage};
 export type {Cake};
