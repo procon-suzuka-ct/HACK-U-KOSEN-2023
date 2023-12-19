@@ -24,7 +24,6 @@ function searchImg(cake?: Cake, direction?: string, surface?: string): string{
          name = direction + '.' + surface;
     }else if(cake){
         name = cake.direction + '.' + cake.surface;
-        
     }
 
     let scr = react;

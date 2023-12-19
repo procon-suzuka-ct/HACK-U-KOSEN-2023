@@ -14,8 +14,19 @@ type IMAGE = {
     height: number;
 };
 
-function URLImage({ img }: any) {
+function URLImage({ img }: any, candrag?:Boolean) {
     const [i] = useImage(img.scr);
+    let drag;
+    if(candrag == true)
+    {
+        drag = true;
+    }else if(candrag == false)
+    {
+        drag = false
+    }
+    else if(candrag == undefined){
+        drag = true;
+    }
     return <Image 
                 image={i}
                 x={img.x}
@@ -23,7 +34,7 @@ function URLImage({ img }: any) {
                 width={img.width}
                 height={img.height}
                 name={String(img.id)}
-                draggable
+                draggable={drag}
                 onDragEnd={(e) => {
                     img.x = e.target.x();
                     img.y = e.target.y();
@@ -82,7 +93,6 @@ export class RenderImage {
     }
 
     RenderImage() {
-        console.log("start RenderImage");
         return (
             this.imagemap.map((image) => {
                 return <URLImage img={image}/>
@@ -113,3 +123,4 @@ export class RenderImage {
 }
 
 export type { IMAGE };
+export { URLImage };

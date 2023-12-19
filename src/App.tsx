@@ -7,6 +7,7 @@ import Login from "./pages/Login.tsx";
 import Template from "./Template.tsx";
 import Confirmation from "./pages/Confirmation.tsx";
 import Change from "./pages/Finish.tsx";
+import OnlyCake from "./pages/OnlyCake.tsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path={"/payment"} element={<Payment/>}/>
           <Route path={"/design"} element={<Design/>}/>
           <Route path={"/login"} element={<Login/>}/>
+          <Route path={"/onlycake"} element={<OnlyCake/>}/>
           <Route path={"/confirmation"} element={<Confirmation/>}/>
           <Route path={"/finish"} element={<Change/>}/>
         </Routes>

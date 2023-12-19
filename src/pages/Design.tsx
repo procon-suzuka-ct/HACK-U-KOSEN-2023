@@ -1,5 +1,6 @@
 import styles from './Design.module.scss';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Stage, Layer, Image, Rect, Text, Line } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
 import Konva from 'konva';
@@ -56,21 +57,18 @@ function Design() {
   const [img, setImg] = useState<IMAGE[]>([]);
   const [tool, setTool] = useState<string>("pen");
 
-  const stageRef = useRef<Konva.Stage>(null);
+  const navigate = useNavigate();
 
   const fD = new RenderImage(img);
 
   const handleOnSubmit = () => {
-    const temp = stageRef.current;
-    if (temp != null) {
-      const dataURL = temp.toDataURL();
-      downloadURI(dataURL, "test.png");
-      console.log(dataURL);
-    }
+    console.log(cakeColor);
+      navigate("/onlycake", { state: { imgmap: img, cakecolor: cakeColor, messsage: "ok" } })
   }
 
+ 
   return (
-    <Stage ref={stageRef} width={window.innerWidth} height={window.innerHeight} >
+    <Stage width={window.innerWidth} height={window.innerHeight} >
       <Layer >
         <Image image={background} x={0} y={0} width={width} height={height} />
       </Layer>
