@@ -1,1 +1,44 @@
-.container{}
+.container{
+    height :auto;
+    background-image: url("../assets/system/home-background.png");
+    header{
+        background-color: #b00200;
+        height: 10vh;
+        font-size: 5vh;
+        color: white;
+        text-align: left;
+        border-bottom:solid 1vh #a94a4a;
+    }
+    .content{
+        text-align: right;
+        font-size: 2vh;
+    }
+    .santa{
+        width:100%;
+    }
+    h1{
+        text-align: center;
+        font-size: 5vh;
+    }
+    h2{
+        text-align: center;
+        font-size: 4vh;
+    }
+    p{
+        text-align: center;
+        font-size: 2vh;
+    }
+    .sentence{
+        padding-bottom: 5vh;
+    }
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+}
+
