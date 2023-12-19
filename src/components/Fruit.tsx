@@ -75,7 +75,7 @@ function toFruit(name: string) {
     }
     return f;
 }
-
+/*
 function toImg(fruit: Fruit, draggable?: boolean) {
     return (
         <img
@@ -92,6 +92,7 @@ function toImg(fruit: Fruit, draggable?: boolean) {
         />
     );
 }
+*/
 
 function toImage(fruit: Fruit, x: number, y: number, draggable?: boolean) {
 
@@ -109,4 +110,4 @@ function toImage(fruit: Fruit, x: number, y: number, draggable?: boolean) {
 }
 
 export type { Fruit };
-export { toFruit, toImg, toImage };
+export { toFruit, toImage };
