@@ -4,7 +4,6 @@ import Home from "./pages/Home.tsx";
 import Payment from "./pages/Payment.tsx";
 import Design from "./pages/Design.tsx";
 import Login from "./pages/Login.tsx";
-import Template from "./Template.tsx";
 import Confirmation from "./pages/Confirmation.tsx";
 import Change from "./pages/Finish.tsx";
 import OnlyCake from "./pages/OnlyCake.tsx";
@@ -12,7 +11,6 @@ import OnlyCake from "./pages/OnlyCake.tsx";
 function App() {
   return (
     <BrowserRouter>
-      <Template>
         <Routes>
           <Route path={"/"} element={<Home/>}/>
           <Route path={"/payment"} element={<Payment/>}/>
@@ -22,7 +20,6 @@ function App() {
           <Route path={"/confirmation"} element={<Confirmation/>}/>
           <Route path={"/finish"} element={<Change/>}/>
         </Routes>
-      </Template>
     </BrowserRouter>
   )
 }

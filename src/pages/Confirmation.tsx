@@ -1,6 +1,5 @@
 import styles from './Confirmation.module.scss';
-import { toFruit } from '../components/Fruit';
-import { IMAGE, URLImage } from '../components/RenderImage';
+import { IMAGE, UndragURLImage } from '../components/RenderImage';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Stage, Layer, Image, Rect, Text, Line } from 'react-konva';
@@ -62,7 +61,7 @@ function Confirmation() {
                     toImage({ direction: "side", surface: cakeColor }, width10 * 4.1, height10 * 1.6, width10 * 2.1, height10 * 2.1)
                 }
                 <Text x={width10 * 4.7} y={height10 * 3.8} text="よこ" fontSize={height10 * 0.45} />
-                <URLImage img={
+                <UndragURLImage img={
                     {
                         id: 0,
                         scr: dataURL,
@@ -71,10 +70,11 @@ function Confirmation() {
                         width: width10 * 4,
                         height: height * 0.6
                     }}
-                    candrag={false}
                 />
                 <Rect fill='#E58E4F' x={width * 0.03} y={height10 * 7.7} width={width10 * 2} height={width10 * 2} cornerRadius={70} />
-                <Image image={yajirushi} x={width * 0.03} y={height10 * 7.6} width={width10 * 2} height={width10 * 2} />
+                <Image onClick={() => {
+                    navigate("/design", { state: { imgmap: img, cakecolor: cakeColor, message: "return" } });
+                }} image={yajirushi} x={width * 0.03} y={height10 * 7.6} width={width10 * 2} height={width10 * 2} />
                 <Text x={width * 0.09} y={height10 * 9.45} text="もどる" fontSize={height10 * 0.4} />
                 <Rect fill='#E58E4F' x={width * 0.68} y={height10 * 7.7} width={width10 * 2} height={width10 * 2} cornerRadius={70} />
                 <Image image={santa} x={width * 0.71} y={height10 * 7.7} width={width10 * 1.6} height={width10 * 1.6} />

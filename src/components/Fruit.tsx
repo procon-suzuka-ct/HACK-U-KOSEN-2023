@@ -1,7 +1,6 @@
 import useImage from 'use-image';
 import { Image } from 'react-konva';
 /*フルーツの画像をインポート*/
-import react from '../assets/react.svg';
 import strawberry from "../assets/fruits/strawberry.png";
 import mango from "../assets/fruits/mango.png";
 import blueberry from "../assets/fruits/blueberry.png";
@@ -18,7 +17,7 @@ type Fruit = {
 }
 
 function toFruit(name: string) {
-    let scr = react;
+    let scr = "";
     let width = 100;
     let height = 100;
     const system_width = window.innerWidth;
@@ -64,7 +63,7 @@ function toFruit(name: string) {
             height = height10 * 0.7;
             break;
         default:
-            scr = react;
+            scr = "";
             break;
     }
     let f: Fruit = {
