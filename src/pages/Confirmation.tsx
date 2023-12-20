@@ -8,8 +8,7 @@ import useImage from 'use-image';
 import sys_yajirushi from '../assets/system/yajirushi.png';
 import sys_background from '../assets/system/background.png';
 import sys_santa from '../assets/system/christmas_santa_hello.png';
-import saveImage from "../utils/saveImage";
-import downloadURI from '../components/DownLoadImage';
+import { toBlob, Upload } from '../components/Upload';
 
 function Confirmation() {
 
@@ -80,15 +79,8 @@ function Confirmation() {
                 <Text x={width * 0.09} y={height10 * 9.45} text="もどる" fontSize={height10 * 0.4} />
                 <Rect fill='#E58E4F' x={width * 0.68} y={height10 * 7.7} width={width10 * 2} height={width10 * 2} cornerRadius={70} />
                 <Image onClick={() => {
-                    let d = new Date();
-                    let year = d.getFullYear();
-                    let month = d.getMonth();
-                    let date = d.getDate();
-                    let hour = d.getHours();
-                    let min = d.getMinutes();
-                    let sec = d.getMilliseconds();
-                    let filename = String(year) + String(month) + String(date) + String(hour) + String(min) + String(sec) + ".png";
-                    saveImage(location.state.dataURL, filename);
+                    const image = toBlob(dataURL);
+                    if(image) Upload(image);
                     navigate("/change", { state: { dataURL: dataURL } });
                 }} image={santa} x={width * 0.71} y={height10 * 7.7} width={width10 * 1.6} height={width10 * 1.6} />
                 <Text x={width * 0.75} y={height10 * 9.45} text="おくる" fontSize={height10 * 0.4} />
