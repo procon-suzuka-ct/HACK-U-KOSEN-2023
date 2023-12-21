@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { Fruit, toImage, toFruit } from './Fruit'
-import { Image, Stage, Layer, Text, Rect } from 'react-konva';
+import { Fruit } from './Fruit'
+import { Image } from 'react-konva';
 import useImage from 'use-image';
 import { KonvaEventObject } from 'konva/lib/Node';
 // このファイルを読み込むとエラーが発生する。
@@ -14,19 +13,8 @@ type IMAGE = {
     height: number;
 };
 
-function URLImage({ img }: any, candrag?:Boolean) {
+function URLImage({ img }: any) {
     const [i] = useImage(img.scr);
-    let drag;
-    if(candrag == true)
-    {
-        drag = true;
-    }else if(candrag == false)
-    {
-        drag = false
-    }
-    else if(candrag == undefined){
-        drag = true;
-    }
     return <Image 
                 image={i}
                 x={img.x}
@@ -34,7 +22,22 @@ function URLImage({ img }: any, candrag?:Boolean) {
                 width={img.width}
                 height={img.height}
                 name={String(img.id)}
-                draggable={drag}
+                draggable
+                onDragEnd={(e) => {
+                    img.x = e.target.x();
+                    img.y = e.target.y();
+                }}
+             />
+}
+function UndragURLImage({ img }: any) {
+    const [i] = useImage(img.scr);
+    return <Image 
+                image={i}
+                x={img.x}
+                y={img.y}
+                width={img.width}
+                height={img.height}
+                name={String(img.id)}
                 onDragEnd={(e) => {
                     img.x = e.target.x();
                     img.y = e.target.y();
@@ -95,7 +98,7 @@ export class RenderImage {
     RenderImage() {
         return (
             this.imagemap.map((image) => {
-                return <URLImage img={image}/>
+                return <URLImage img={image} candrag={true}/>
             })
         );
 
@@ -123,4 +126,4 @@ export class RenderImage {
 }
 
 export type { IMAGE };
-export { URLImage };
+export { URLImage, UndragURLImage };

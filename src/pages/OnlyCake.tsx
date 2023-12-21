@@ -4,7 +4,6 @@ import { Stage, Layer } from 'react-konva';
 import Konva from 'konva';
 import { RenderImage, IMAGE } from '../components/RenderImage';
 import { toImage } from '../components/Cake';
-import downloadURI from '../components/DownLoadImage';
 
 function Design() {
   const width = window.innerWidth;

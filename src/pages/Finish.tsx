@@ -7,11 +7,15 @@ import useImage from 'use-image';
 import per_givsanta from '../assets/person/present-santa.png';
 import sys_background from '../assets/system/final-background.png';
 
-function Change() {
+function Finish() {
     const [givsanta] = useImage(per_givsanta);
     const [background] = useImage(sys_background);
     const width = window.innerWidth;
   	const height = document.body.clientHeight;
+      const onClickPaymentpage = () => {
+          navigate("/payment");
+      }
+  
   	const width10 = width / 7;
   	const height10 = height / 10;
   	const system_width = width10 * 0.8;
@@ -43,4 +47,4 @@ function Change() {
     );
 }
 
-export default Change;
+export default Finish;
