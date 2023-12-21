@@ -87,8 +87,6 @@ function Confirmation() {
         <Text x={width * 0.75} y={height10 * 9.45} text="おくる" fontSize={height10 * 0.4}/>
       </Layer>
     </Stage>
-
-
   );
 }
 
