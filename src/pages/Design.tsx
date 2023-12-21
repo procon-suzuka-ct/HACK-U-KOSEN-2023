@@ -46,7 +46,6 @@ function Design() {
   const bottom_height = height - height10;
 
   const [, setBool_menu] = useState(false);
-  const [bool_eraser, setBool_eraser] = useState(false);
   const [bool_penColor, setBool_penColor] = useState(false);
   const [bool_hoipColor, setBool_hoipColor] = useState(false);
   const [bool_cakeColor, setBool_cakeColor] = useState(false);
