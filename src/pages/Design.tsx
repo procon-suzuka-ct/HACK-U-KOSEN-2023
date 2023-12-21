@@ -1,5 +1,4 @@
-
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {Image, Layer, Line, Rect, Stage, Text} from 'react-konva';
 import {KonvaEventObject} from 'konva/lib/Node';
@@ -59,6 +58,7 @@ function Design() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fR = new RenderImage(img);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +74,7 @@ function Design() {
       console.log(fP.lines);
       location.state = null;
     }
-  }, [location, fR])
+  }, [location, fR, fP])
 
   useEffect(() => {
     fP.colorChange(penColor);
