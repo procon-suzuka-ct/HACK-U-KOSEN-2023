@@ -69,7 +69,7 @@ const Home = () => {
               cakes.map((cake, index) => (
                 <URLImage cake={cake} x={centerx/2 + (index % 4) * containtwidth + containtwidth * 0.4 } y={Math.floor(index / 4) * containtwidth + containtwidth} width={containtwidth} height={containtwidth}/>
               ))
-}
+            }
           </Layer>
         </Stage>
         <a href="/Design"><img src={button_next}/></a>
