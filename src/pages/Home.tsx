@@ -1,5 +1,5 @@
 import styles from './Home.module.scss';
-import {Stage, Layer, Image} from 'react-konva';
+import {Image, Layer, Stage} from 'react-konva';
 import top_santa from "../assets/person/top_santa.png"
 import case_show from "../assets/system/showcase.png"
 import button_next from "../assets/system/button.png"
@@ -8,11 +8,11 @@ import {useEffect, useState} from "react";
 import useImage from 'use-image';
 
 
-const URLImage = (cake : Cake, x:number, y:number, width:number, height:number) => {
-  console.log(cake.imageURL);
-  const [image] = useImage(cake.imageURL);
+const URLImage = (props: { cake: Cake, x: number, y: number, width: number, height: number }) => {
+  console.log(props.cake.imageURL);
+  const [image] = useImage(props.cake.imageURL);
   return (
-    <Image image={image} x={x} y={y} width={width} height={height}/>
+    <Image image={image} x={props.x} y={props.y} width={props.width} height={props.height}/>
   );
 }
 
@@ -60,7 +60,13 @@ const Home = () => {
           <Layer>
             <Image image={showcase} x={0} y={0} width={800} height={600}/>
             {
-              URLImage(cakes[1], 0, 0, 800, 600)
+              cakes.length !== 0 &&
+                <URLImage
+                    cake={cakes[0]}
+                    x={0}
+                    y={0}
+                    width={800}
+                    height={600}/>
             }
           </Layer>
         </Stage>
