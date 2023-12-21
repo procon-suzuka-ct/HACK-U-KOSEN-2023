@@ -12,60 +12,59 @@ import cross_strawberry from '../assets/cakes/cross_3.png';
 import cross_normal from '../assets/cakes/cross.png';
 
 type Cake = {
-    direction: string,
-    surface: string,
+  direction: string,
+  surface: string,
 }
 
-function searchImg(cake?: Cake, direction?: string, surface?: string): string{
-    let name:string = '';
-    if(direction && surface)
-    {
-         name = direction + '.' + surface;
-    }else if(cake){
-        name = cake.direction + '.' + cake.surface;
-    }
+function searchImg(cake?: Cake, direction?: string, surface?: string): string {
+  let name: string = '';
+  if (direction && surface) {
+    name = direction + '.' + surface;
+  } else if (cake) {
+    name = cake.direction + '.' + cake.surface;
+  }
 
-    let scr = "";
-    
-    switch(name){
-        case 'front.chocolate':
-            scr = front_chocolate;
-            break;
-        case 'front.strawberry':
-            scr = front_strawberry;
-            break;
-        case 'front.normal':
-            scr = front_normal;
-            break;
-        case 'side.chocolate':
-            scr = side_chocolate;
-            break;
-        case 'side.strawberry':
-            scr = side_strawberry;
-            break;
-        case 'side.normal':
-            scr = side_normal;
-            break;
-        case 'cross.chocolate':
-            scr = cross_chocolate;
-            break;
-        case 'cross.strawberry':
-            scr = cross_strawberry;
-            break;
-        case 'cross.normal':
-            scr = cross_normal;
-            break;
-        default:
-            scr = "";
-            break;
-    }
-    return scr;
+  let scr = "";
+
+  switch (name) {
+    case 'front.chocolate':
+      scr = front_chocolate;
+      break;
+    case 'front.strawberry':
+      scr = front_strawberry;
+      break;
+    case 'front.normal':
+      scr = front_normal;
+      break;
+    case 'side.chocolate':
+      scr = side_chocolate;
+      break;
+    case 'side.strawberry':
+      scr = side_strawberry;
+      break;
+    case 'side.normal':
+      scr = side_normal;
+      break;
+    case 'cross.chocolate':
+      scr = cross_chocolate;
+      break;
+    case 'cross.strawberry':
+      scr = cross_strawberry;
+      break;
+    case 'cross.normal':
+      scr = cross_normal;
+      break;
+    default:
+      scr = "";
+      break;
+  }
+  return scr;
 }
 
 /*
 function toImg(cake: Cake, width?:number, height?:number) {
     return (
-        <img 
+        <img
             src={searchImg(cake)}
             width={width}
             height={height}
@@ -73,18 +72,18 @@ function toImg(cake: Cake, width?:number, height?:number) {
     );
 }*/
 
-function toImage(cake: Cake, x:number, y:number, width?:number, height?:number){
-    const [image] = useImage(searchImg(cake));
-    return (
-        <Image
-            image={image}
-            x={x}
-            y={y}
-            width={width}
-            height={height}
-        />
-    );
+function ToImage(props: { cake: Cake, x: number, y: number, width?: number, height?: number }) {
+  const [image] = useImage(searchImg(props.cake));
+  return (
+    <Image
+      image={image}
+      x={props.x}
+      y={props.y}
+      width={props.width}
+      height={props.height}
+    />
+  );
 }
 
-export {searchImg, toImage};
+export {ToImage};
 export type {Cake};

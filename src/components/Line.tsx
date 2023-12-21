@@ -1,5 +1,5 @@
-import { Layer, Line, Text } from 'react-konva';
-import { KonvaEventObject } from 'konva/lib/Node';
+import {Layer, Line} from 'react-konva';
+import {KonvaEventObject} from 'konva/lib/Node';
 
 type typeline = {
   tool: string;
@@ -22,14 +22,14 @@ export class Drow {
       console.log("pos is undefined || null");
     } else {
       //add line
-      const currentline: typeline[] = [{ tool: tool, points: [pos.x, pos.y], color: this.color }];
+      const currentline: typeline[] = [{tool: tool, points: [pos.x, pos.y], color: this.color}];
       this.lines.push(currentline[0]);
     }
-  };
+  }
 
   handleMouseMove(e: KonvaEventObject<MouseEvent>) {
     const pos = e.target.getStage()?.getPointerPosition();
-    let lastLine = this.lines[this.lines.length - 1];
+    const lastLine = this.lines[this.lines.length - 1];
 
     if (pos == undefined || pos == null) {
       console.log("pos is undefined || null");
@@ -39,11 +39,11 @@ export class Drow {
 
     this.lines.splice(this.lines.length - 1, 1, lastLine);
     this.lines = this.lines.concat();
-  };
+  }
 
   colorChange(color: string) {
     this.color = color;
-  };
+  }
 
 
   render() {
@@ -68,9 +68,9 @@ export class Drow {
   }
 }
 
-export type { typeline };
+export type {typeline};
 
 /*
 
-          
+
 */
