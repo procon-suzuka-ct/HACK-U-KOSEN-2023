@@ -21,7 +21,7 @@ function Change() {
 
     const navigate = useNavigate();
     const onClickHomepage = () => {
-        navigate("/Home");
+        navigate("/");
     }
 
     return(

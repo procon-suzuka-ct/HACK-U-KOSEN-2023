@@ -1,7 +1,6 @@
 import useImage from 'use-image';
 import {Image} from 'react-konva';
 // ケーキの画像をインポートする
-import react from '../assets/react.svg';
 import front_chocolate from '../assets/cakes/normal_2.png';
 import front_strawberry from '../assets/cakes/normal_3.png';
 import front_normal from '../assets/cakes/normal.png';
@@ -24,10 +23,9 @@ function searchImg(cake?: Cake, direction?: string, surface?: string): string{
          name = direction + '.' + surface;
     }else if(cake){
         name = cake.direction + '.' + cake.surface;
-        
     }
 
-    let scr = react;
+    let scr = "";
     
     switch(name){
         case 'front.chocolate':
@@ -58,13 +56,13 @@ function searchImg(cake?: Cake, direction?: string, surface?: string): string{
             scr = cross_normal;
             break;
         default:
-            scr = react;
+            scr = "";
             break;
     }
     return scr;
 }
 
-
+/*
 function toImg(cake: Cake, width?:number, height?:number) {
     return (
         <img 
@@ -73,7 +71,7 @@ function toImg(cake: Cake, width?:number, height?:number) {
             height={height}
         />
     );
-}
+}*/
 
 function toImage(cake: Cake, x:number, y:number, width?:number, height?:number){
     const [image] = useImage(searchImg(cake));
@@ -88,5 +86,5 @@ function toImage(cake: Cake, x:number, y:number, width?:number, height?:number){
     );
 }
 
-export {searchImg,toImg, toImage};
+export {searchImg, toImage};
 export type {Cake};
