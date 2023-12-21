@@ -4,6 +4,7 @@ import {Layer, Stage} from 'react-konva';
 import Konva from 'konva';
 import {IMAGE, RenderImage} from '../components/RenderImage';
 import {ToImage} from '../components/Cake';
+import {Drow, typeline} from "../components/Line.tsx";
 
 function Design() {
   const width = window.innerWidth;
@@ -13,16 +14,22 @@ function Design() {
   const stageRef = useRef<Konva.Stage>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const [lines, setlines] = useState<typeline[]>([]);
   const [imgmap, setImgmap] = useState<IMAGE[]>([])
   const [cakeColor, setCakeColor] = useState<string>("");
+  const fR = new RenderImage(imgmap);
+  const fP = new Drow(lines);
   const fD = new RenderImage(imgmap);
+
   let dataURL: string = "";
 
   useLayoutEffect(() => {
     if (location.state) {
+      setlines(location.state.lines);
       setImgmap(location.state.imgmap);
       setCakeColor(location.state.cakecolor);
-      fD.imagemap = imgmap;
+      fR.imagemap = imgmap;
+      fP.lines = lines;
     } else {
       navigate("/");
     }
@@ -52,9 +59,12 @@ function Design() {
           width={width10 * 1.3}
           height={height10 * 1.3}/>
         {
-          fD.RenderImage()
+          fR.RenderImage()
         }
       </Layer>
+      {
+        fP.render()
+      }
     </Stage>
 
   );

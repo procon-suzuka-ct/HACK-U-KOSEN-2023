@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {Image, Layer, Line, Rect, Stage, Text} from 'react-konva';
 import {KonvaEventObject} from 'konva/lib/Node';
@@ -14,7 +14,7 @@ import fruit_blueberry from "../assets/fruits/blueberry.png";
 import fruit_kiwi from "../assets/fruits/kiwi-fruit.png";
 import sys_santa from "../assets/system/christmas_santa_hello.png";
 import sys_hoip from "../assets/system/cream.png";
-import sys_palette from "../assets/system/paint-palette.png";
+import sys_palette_paint from "../assets/system/paint-palette.png"
 import sys_palette_cake from "../assets/system/palette-cake.png";
 import pen from "../assets/system/pen.png";
 import eraser from "../assets/system/eraser.png";
@@ -31,7 +31,7 @@ function Design() {
   const [kiwi] = useImage(fruit_kiwi);
   const [santa] = useImage(sys_santa);
   const [hoip] = useImage(sys_hoip);
-  const [palette] = useImage(sys_palette);
+  const [palette] = useImage(sys_palette_paint);
   const [palette_cake] = useImage(sys_palette_cake);
   const [pen_] = useImage(pen);
   const [eraser_] = useImage(eraser);
@@ -58,19 +58,23 @@ function Design() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fR = new RenderImage(img);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fP = new Drow(lines);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.state) {
-      fR.imagemap = location.state.imgmap;
-      setImg(fR.imagemap);
       setCakeColor(location.state.cakecolor);
+      setlines(location.state.lines);
+      setImg(location.state.image);
+      fR.imagemap = location.state.imgmap;
+      fP.lines = location.state.lines;
+      console.log(fP.lines);
       location.state = null;
     }
-  }, [location, fR])
+  }, [location, fR, fP])
 
   useEffect(() => {
     fP.colorChange(penColor);
