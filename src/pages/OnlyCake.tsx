@@ -1,10 +1,9 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Stage, Layer } from 'react-konva';
+import {useLayoutEffect, useRef, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Layer, Stage} from 'react-konva';
 import Konva from 'konva';
-import { RenderImage, IMAGE } from '../components/RenderImage';
-import { Drow, typeline } from "../components/Line.tsx"
-import { toImage } from '../components/Cake';
+import {IMAGE, RenderImage} from '../components/RenderImage';
+import {ToImage} from '../components/Cake';
 
 function Design() {
   const width = window.innerWidth;
@@ -35,17 +34,28 @@ function Design() {
     setTimeout(() => {
       const stage = stageRef.current;
       if (stage != null) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         dataURL = stage.toDataURL();
-        navigate("/confirmation", { state: { dataURL: dataURL, imgmap: fR.imagemap, lines: fP.lines, cakecolor: location.state.cakecolor, messsage: "ok" } });
+        navigate("/confirmation", {
+          state: {
+            dataURL: dataURL,
+            imgmap: fD.imagemap,
+            cakecolor: location.state.cakecolor,
+            messsage: "ok"
+          }
+        });
       }
     }, 100)
   });
   return (
-    <Stage ref={stageRef} width={window.innerWidth} height={window.innerHeight} >
+    <Stage ref={stageRef} width={window.innerWidth} height={window.innerHeight}>
       <Layer>
-        {
-          toImage({ direction: "front", surface: cakeColor }, width10 / 2, height10 * 2, width / 1.3, width / 1.3)
-        }
+        <ToImage
+          cake={{direction: "front", surface: cakeColor}}
+          x={width10 / 2}
+          y={height10 * 2}
+          width={width10 * 1.3}
+          height={height10 * 1.3}/>
         {
           fR.RenderImage()
         }
