@@ -4,6 +4,7 @@ import {Layer, Stage} from 'react-konva';
 import Konva from 'konva';
 import {IMAGE, RenderImage} from '../components/RenderImage';
 import {ToImage} from '../components/Cake';
+import {Drow, typeline} from "../components/Line.tsx";
 
 function Design() {
   const width = window.innerWidth;
@@ -18,6 +19,7 @@ function Design() {
   const [cakeColor, setCakeColor] = useState<string>("");
   const fR = new RenderImage(imgmap);
   const fP = new Drow(lines);
+  const fD = new RenderImage(imgmap);
 
   let dataURL: string = "";
 
