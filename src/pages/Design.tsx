@@ -1,5 +1,5 @@
 import styles from './Design.module.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Stage, Layer, Image, Rect, Text, Line } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
@@ -15,12 +15,11 @@ import fruit_blueberry from "../assets/fruits/blueberry.png";
 import fruit_kiwi from "../assets/fruits/kiwi-fruit.png";
 import sys_santa from "../assets/system/christmas_santa_hello.png";
 import sys_hoip from "../assets/system/cream.png";
-import sys_palette from "../assets/system/paint-palette.png";
+import sys_palette_paint from "../assets/system/paint-palette.png"
 import sys_palette_cake from "../assets/system/palette-cake.png";
 import pen from "../assets/system/pen.png";
 import eraser from "../assets/system/eraser.png";
 import arrow from "../assets/system/yajirushi.png";
-import { set } from 'firebase/database';
 import { Drow, typeline } from "../components/Line.tsx"
 
 function Design() {
@@ -33,7 +32,7 @@ function Design() {
   const [kiwi] = useImage(fruit_kiwi);
   const [santa] = useImage(sys_santa);
   const [hoip] = useImage(sys_hoip);
-  const [palette] = useImage(sys_palette);
+  const [palette] = useImage(sys_palette_paint);
   const [palette_cake] = useImage(sys_palette_cake);
   const [pen_] = useImage(pen);
   const [eraser_] = useImage(eraser);
@@ -63,11 +62,14 @@ function Design() {
   const fR = new RenderImage(img);
   const fP = new Drow(lines);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.state) {
-      fR.imagemap = location.state.imgmap;
-      setImg(fR.imagemap);
       setCakeColor(location.state.cakecolor);
+      setlines(location.state.lines);
+      setImg(location.state.image);
+      fR.imagemap = location.state.imgmap;
+      fP.lines = location.state.lines;
+      console.log(fP.lines);
       location.state = null;
     }
   })
@@ -80,7 +82,7 @@ function Design() {
 
   const handleOnSubmit = () => {
     console.log(cakeColor);
-    navigate("/onlycake", { state: { imgmap: img, cakecolor: cakeColor, messsage: "ok" } })
+    navigate("/onlycake", { state: { imgmap: img, lines: lines, cakecolor: cakeColor, messsage: "ok" } })
   }
 
 

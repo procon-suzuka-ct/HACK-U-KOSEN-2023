@@ -9,6 +9,7 @@ import sys_yajirushi from '../assets/system/yajirushi.png';
 import sys_background from '../assets/system/background.png';
 import sys_santa from '../assets/system/christmas_santa_hello.png';
 import { toBlob, Upload } from '../components/Upload';
+import { typeline } from "../components/Line.tsx";
 
 function Confirmation() {
 
@@ -24,17 +25,19 @@ function Confirmation() {
     const [img, setImgmap] = useState<IMAGE[]>([]);
     const [cakeColor, setCakeColor] = useState<string>("normal");
     const [dataURL, setDataURL] = useState<string>("");
+    const [lines, setlines] = useState<typeline[]>([]);
 
     useEffect(() => {
         if (location.state) {
             setImgmap(location.state.imgmap);
             setCakeColor(location.state.cakecolor);
             setDataURL(location.state.dataURL);
+            setlines(location.state.lines);
             //downloadURI(location.state.dataURL, "test.png")
-            console.log("testcolor", location.state.cakecolor);
-            console.log("testlocal", cakeColor);
-            console.log("dataURL", dataURL);
-            console.log("imgmap", img);
+            console.log("confirmation:lines", lines);
+            console.log("confirmation:color", cakeColor);
+            console.log("confirmation:dataURL", dataURL);
+            console.log("confirmation:imgmap", img);
 
         } else {
             navigate("/");
@@ -74,7 +77,7 @@ function Confirmation() {
                 />
                 <Rect fill='#E58E4F' x={width * 0.03} y={height10 * 7.7} width={width10 * 2} height={width10 * 2} cornerRadius={70} />
                 <Image onClick={() => {
-                    navigate("/design", { state: { imgmap: img, cakecolor: cakeColor, message: "return" } });
+                    navigate("/design", { state: { imgmap: img, lines: lines, cakecolor: cakeColor, message: "return" } });
                 }} image={yajirushi} x={width * 0.03} y={height10 * 7.6} width={width10 * 2} height={width10 * 2} />
                 <Text x={width * 0.09} y={height10 * 9.45} text="もどる" fontSize={height10 * 0.4} />
                 <Rect fill='#E58E4F' x={width * 0.68} y={height10 * 7.7} width={width10 * 2} height={width10 * 2} cornerRadius={70} />

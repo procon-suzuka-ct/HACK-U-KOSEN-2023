@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Stage, Layer } from 'react-konva';
 import Konva from 'konva';
 import { RenderImage, IMAGE } from '../components/RenderImage';
+import { Drow, typeline } from "../components/Line.tsx"
 import { toImage } from '../components/Cake';
 
 function Design() {
@@ -13,16 +14,21 @@ function Design() {
   const stageRef = useRef<Konva.Stage>(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const [lines, setlines] = useState<typeline[]>([]);
   const [imgmap, setImgmap] = useState<IMAGE[]>([])
   const [cakeColor, setCakeColor] = useState<string>("");
-  const fD = new RenderImage(imgmap);
+  const fR = new RenderImage(imgmap);
+  const fP = new Drow(lines);
+
   let dataURL: string = "";
 
   useLayoutEffect(() => {
     if (location.state) {
+      setlines(location.state.lines);
       setImgmap(location.state.imgmap);
       setCakeColor(location.state.cakecolor);
-      fD.imagemap = imgmap;
+      fR.imagemap = imgmap;
+      fP.lines = lines;
     } else {
       navigate("/");
     }
@@ -30,7 +36,7 @@ function Design() {
       const stage = stageRef.current;
       if (stage != null) {
         dataURL = stage.toDataURL();
-        navigate("/confirmation", { state: { dataURL: dataURL, imgmap: fD.imagemap, cakecolor: location.state.cakecolor, messsage: "ok" } });
+        navigate("/confirmation", { state: { dataURL: dataURL, imgmap: fR.imagemap, lines: fP.lines, cakecolor: location.state.cakecolor, messsage: "ok" } });
       }
     }, 100)
   });
@@ -41,9 +47,12 @@ function Design() {
           toImage({ direction: "front", surface: cakeColor }, width10 / 2, height10 * 2, width / 1.3, width / 1.3)
         }
         {
-          fD.RenderImage()
+          fR.RenderImage()
         }
       </Layer>
+      {
+        fP.render()
+      }
     </Stage>
 
   );
