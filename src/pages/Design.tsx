@@ -84,7 +84,7 @@ function Design() {
 
   const handleOnSubmit = () => {
     console.log(cakeColor);
-    navigate("/onlycake", {state: {imgmap: img, cakecolor: cakeColor, messsage: "ok"}})
+    navigate("/onlycake", {state: {imgmap: img, lines: lines, cakecolor: cakeColor, messsage: "ok"}})
   }
 
 

@@ -7,6 +7,7 @@ import useImage from 'use-image';
 import sys_yajirushi from '../assets/system/yajirushi.png';
 import sys_background from '../assets/system/background.png';
 import sys_santa from '../assets/system/christmas_santa_hello.png';
+import { typeline } from '../components/Line';
 
 function Confirmation() {
 
@@ -20,12 +21,14 @@ function Confirmation() {
   const location = useLocation();
   const navigate = useNavigate();
   const [img, setImgmap] = useState<IMAGE[]>([]);
+  const [lines, setLines] = useState<typeline[]>([]);
   const [cakeColor, setCakeColor] = useState<string>("normal");
   const [dataURL, setDataURL] = useState<string>("");
 
   useEffect(() => {
     if (location.state) {
       setImgmap(location.state.imgmap);
+      setLines(location.state.lines);
       setCakeColor(location.state.cakecolor);
       setDataURL(location.state.dataURL);
       //downloadURI(location.state.dataURL, "test.png")
@@ -78,7 +81,7 @@ function Confirmation() {
         <Rect fill='#E58E4F' x={width * 0.03} y={height10 * 7.7} width={width10 * 2} height={width10 * 2}
               cornerRadius={70}/>
         <Image onClick={() => {
-          navigate("/design", {state: {imgmap: img, cakecolor: cakeColor, message: "return"}});
+          navigate("/design", {state: {imgmap: img, lines: lines, cakecolor: cakeColor, message: "return"}});
         }} image={yajirushi} x={width * 0.03} y={height10 * 7.6} width={width10 * 2} height={width10 * 2}/>
         <Text x={width * 0.09} y={height10 * 9.45} text="もどる" fontSize={height10 * 0.4}/>
         <Rect fill='#E58E4F' x={width * 0.68} y={height10 * 7.7} width={width10 * 2} height={width10 * 2}

@@ -56,8 +56,8 @@ function Design() {
           cake={{direction: "front", surface: cakeColor}}
           x={width10 / 2}
           y={height10 * 2}
-          width={width10 * 1.3}
-          height={height10 * 1.3}/>
+          width={width / 1.3}
+          height={width / 1.3}/>
         {
           fR.RenderImage()
         }
