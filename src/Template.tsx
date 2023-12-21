@@ -28,7 +28,7 @@ const Template = (props: { children: ReactNode }) => {
     if (appUser && location.pathname === "/login") {
       router(activePath);
     }
-  }, [appUser, location.pathname, router])
+  }, [activePath, appUser, location.pathname, router])
 
   return (
     <div>

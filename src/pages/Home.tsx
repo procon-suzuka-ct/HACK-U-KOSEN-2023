@@ -1,12 +1,31 @@
 import styles from './Home.module.scss';
+import {Image, Layer, Stage} from 'react-konva';
 import top_santa from "../assets/person/top_santa.png"
 import case_show from "../assets/system/showcase.png"
 import button_next from "../assets/system/button.png"
 import {Cake} from "../utils/cake.ts";
 import {useEffect, useState} from "react";
+import useImage from 'use-image';
+
+
+const URLImage = (props: { cake: Cake, x: number, y: number, width: number, height: number }) => {
+  console.log(props.cake.imageURL);
+  const [image] = useImage(props.cake.imageURL);
+  return (
+    <Image image={image} x={props.x} y={props.y} width={props.width} height={props.height}/>
+  );
+}
+
 
 const Home = () => {
+
+
+  const width = window.innerWidth;
+  const centerx = width / 2;
+  const containtwidth = width /8;
+
   const [cakes, setCakes] = useState<Cake[]>([]);
+  const [showcase] = useImage(case_show);
 
   useEffect(() => {
     Cake.getCakes().then((cakes) => {
@@ -42,8 +61,17 @@ const Home = () => {
         </div>
         <h2>みんなのケーキ</h2>
         <p>みんなはどんなけーきをつくったのかな？</p>
-        <img src={case_show}/>
-
+        <Stage width={width} height={3 * containtwidth}>
+          <Layer>
+            <Image image={showcase} x={centerx/2} y={0} width={4 * containtwidth} height={3 * containtwidth}/>
+            {
+              cakes.length !== 0 &&
+              cakes.map((cake, index) => (
+                <URLImage cake={cake} x={centerx/2 + (index % 4) * containtwidth + containtwidth * 0.4 } y={Math.floor(index / 4) * containtwidth + containtwidth} width={containtwidth} height={containtwidth}/>
+              ))
+            }
+          </Layer>
+        </Stage>
         <a href="/Design"><img src={button_next}/></a>
       </main>
 

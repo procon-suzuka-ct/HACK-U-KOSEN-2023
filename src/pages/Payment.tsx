@@ -15,7 +15,7 @@ const Payment = () => {
   useEffect(() => {
     const value = localStorage.getItem("price");
     setPrice(value ?? price);
-  }, []);
+  }, [price]);
   const register = () => {
     router("/finish");
   }
