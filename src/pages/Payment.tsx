@@ -17,7 +17,7 @@ const Payment = () => {
     setPrice(value ?? price);
   }, [price]);
   const register = () => {
-    router("/");
+    router("/finish");
   }
 
   const handleCardNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
