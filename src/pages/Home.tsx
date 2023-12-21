@@ -6,7 +6,7 @@ import {Cake} from "../utils/cake.ts";
 import {useEffect, useState} from "react";
 
 const Home = () => {
-  const [cakes, setCakes] = useState<Cake[]>([]);
+  const [, setCakes] = useState<Cake[]>([]);
 
   useEffect(() => {
     Cake.getCakes().then((cakes) => {
