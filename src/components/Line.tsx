@@ -45,27 +45,31 @@ export class Drow {
     this.color = color;
   }
 
+  RemoveImage() {
+    this.lines = this.lines.slice(0, this.lines.length - 1);
+  }
+
 
   render() {
-      return (
-        <Layer>
-          {this.lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={5}
-              tension={0.5}
-              lineCap="round"
-              lineJoin="round"
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
-            />
-          ))}
-        </Layer>
-      );
-    }
+    return (
+      <Layer>
+        {this.lines.map((line, i) => (
+          <Line
+            key={i}
+            points={line.points}
+            stroke={line.color}
+            strokeWidth={5}
+            tension={0.5}
+            lineCap="round"
+            lineJoin="round"
+            globalCompositeOperation={
+              line.tool === 'eraser' ? 'destination-out' : 'source-over'
+            }
+          />
+        ))}
+      </Layer>
+    );
+  }
 }
 
 export type { typeline };

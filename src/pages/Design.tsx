@@ -46,6 +46,7 @@ function Design() {
   const bottom_height = height - height10;
 
   const [, setBool_menu] = useState(false);
+  const [bool_eraser, setBool_eraser] = useState(false);
   const [bool_penColor, setBool_penColor] = useState(false);
   const [bool_hoipColor, setBool_hoipColor] = useState(false);
   const [bool_cakeColor, setBool_cakeColor] = useState(false);
@@ -79,6 +80,10 @@ function Design() {
     console.log(penColor, fP.color);
   }, [fP, penColor])
 
+  useEffect(() => {
+    if(tool != "eraser" && tool != "pen")
+      isDrowing.current = false;
+  }, [tool])
 
   const handleOnSubmit = () => {
     console.log(cakeColor);
@@ -167,7 +172,7 @@ function Design() {
 
 
         <Image onClick={() => {
-          setTool("eraser")
+          setTool("eraser");
         }} image={eraser_} x={right_width * 1.02} y={height10 * 7.35} width={width10 * 0.8} height={height10 * 0.8}/>
         <Text x={right_width * 1.02} y={height10 * 8.15} text="けしごむ" fontFamily="sans-serif" fontSize={width / 35}
               fill="black"/>
@@ -232,7 +237,6 @@ function Design() {
           console.log("onclick");
           fR.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
-            console.log("not pen");
             fR.onClick(e, toFruit(tool));
             setImg(fR.imagemap);
           } else if (tool == "eraser") {
@@ -244,7 +248,7 @@ function Design() {
         }}
         onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
           console.log("mousedowntimes");
-          if (tool == "pen") {
+          if (tool == "pen" || tool == "eraser") {
             isDrowing.current = true;
             fP.handleMouseDown(e, tool);
             setlines(fP.lines);
