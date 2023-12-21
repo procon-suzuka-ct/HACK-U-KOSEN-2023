@@ -1,7 +1,7 @@
-import {Fruit} from './Fruit'
-import {Image} from 'react-konva';
+import { Fruit } from './Fruit'
+import { Image } from 'react-konva';
 import useImage from 'use-image';
-import {KonvaEventObject} from 'konva/lib/Node';
+import { KonvaEventObject } from 'konva/lib/Node';
 // このファイルを読み込むとエラーが発生する。
 
 type IMAGE = {
@@ -82,7 +82,6 @@ export class RenderImage {
 
   onClick(e: KonvaEventObject<MouseEvent>, Fruit: Fruit) {
     const pos = e.target.getStage()?.getPointerPosition();
-    console.log(pos);
     if (pos) {
       const img: IMAGE = {
         id: pos.x + pos.y,
@@ -97,12 +96,11 @@ export class RenderImage {
   }
 
   RenderImage() {
-    return (
-      this.imagemap.map((image) => {
-        return <URLImage img={image} candrag={true}/>
-      })
-    );
-
+      return (
+        this.imagemap.map((image) => {
+          return <URLImage img={image} candrag={true} />
+        })
+      );
   }
 
   //最後の要素を削除
@@ -118,16 +116,14 @@ export class RenderImage {
       if (!item) {
         return;
       }
-      console.log(item);
       const index = this.imagemap.indexOf(item);
       //remove from the list:
       this.imagemap = this.imagemap.filter((_, i) => i !== index);
     }
-    console.log(this.now_erase_);
   }
 
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export type {IMAGE};
-export {URLImage, UndragURLImage};
+export type { IMAGE };
+export { URLImage, UndragURLImage };

@@ -66,25 +66,27 @@ function Design() {
 
   useLayoutEffect(() => {
     if (location.state) {
-      setCakeColor(location.state.cakecolor);
       setlines(location.state.lines);
-      setImg(location.state.image);
-      fR.imagemap = location.state.imgmap;
-      fP.lines = location.state.lines;
-      console.log(fP.lines);
-      location.state = null;
+      setImg(location.state.imgmap);
+      setCakeColor(location.state.cakecolor);
+      fR.imagemap = img;
+      fP.lines = lines;
     }
-  }, [location, fR, fP])
+  }, [])
 
   useEffect(() => {
     fP.colorChange(penColor);
     console.log(penColor, fP.color);
   }, [fP, penColor])
 
+  useEffect(() => {
+    if(tool != "eraser" && tool != "pen")
+      isDrowing.current = false;
+  }, [tool])
 
   const handleOnSubmit = () => {
     console.log(cakeColor);
-    navigate("/onlycake", {state: {imgmap: img, cakecolor: cakeColor, messsage: "ok"}})
+    navigate("/onlycake", {state: {imgmap: img, lines: lines, cakecolor: cakeColor, messsage: "ok"}})
   }
 
 
@@ -169,7 +171,7 @@ function Design() {
 
 
         <Image onClick={() => {
-          setTool("eraser")
+          setTool("eraser");
         }} image={eraser_} x={right_width * 1.02} y={height10 * 7.35} width={width10 * 0.8} height={height10 * 0.8}/>
         <Text x={right_width * 1.02} y={height10 * 8.15} text="けしごむ" fontFamily="sans-serif" fontSize={width / 35}
               fill="black"/>
@@ -234,7 +236,6 @@ function Design() {
           console.log("onclick");
           fR.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
-            console.log("not pen");
             fR.onClick(e, toFruit(tool));
             setImg(fR.imagemap);
           } else if (tool == "eraser") {
@@ -246,7 +247,7 @@ function Design() {
         }}
         onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
           console.log("mousedowntimes");
-          if (tool == "pen") {
+          if (tool == "pen" || tool == "eraser") {
             isDrowing.current = true;
             fP.handleMouseDown(e, tool);
             setlines(fP.lines);
@@ -272,8 +273,8 @@ function Design() {
           cake={{direction: "front", surface: cakeColor}}
           x={width10 / 2}
           y={height10 * 2}
-          width={width10 * 1.3}
-          height={height10 * 1.3}/>
+          width={width / 1.3}
+          height={width / 1.3}/>
         {
           fR.RenderImage()
         }

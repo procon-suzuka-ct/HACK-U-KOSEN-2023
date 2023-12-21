@@ -18,6 +18,12 @@ const URLImage = (props: { cake: Cake, x: number, y: number, width: number, heig
 
 
 const Home = () => {
+
+
+  const width = window.innerWidth;
+  const centerx = width / 2;
+  const containtwidth = width /8;
+
   const [cakes, setCakes] = useState<Cake[]>([]);
   const [showcase] = useImage(case_show);
 
@@ -55,18 +61,14 @@ const Home = () => {
         </div>
         <h2>みんなのケーキ</h2>
         <p>みんなはどんなけーきをつくったのかな？</p>
-        <img src={case_show}/>
-        <Stage>
+        <Stage width={width} height={3 * containtwidth}>
           <Layer>
-            <Image image={showcase} x={0} y={0} width={800} height={600}/>
+            <Image image={showcase} x={centerx/2} y={0} width={4 * containtwidth} height={3 * containtwidth}/>
             {
               cakes.length !== 0 &&
-                <URLImage
-                    cake={cakes[0]}
-                    x={0}
-                    y={0}
-                    width={800}
-                    height={600}/>
+              cakes.map((cake, index) => (
+                <URLImage cake={cake} x={centerx/2 + (index % 4) * containtwidth + containtwidth * 0.4 } y={Math.floor(index / 4) * containtwidth + containtwidth} width={containtwidth} height={containtwidth}/>
+              ))
             }
           </Layer>
         </Stage>
