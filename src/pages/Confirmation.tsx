@@ -33,10 +33,6 @@ function Confirmation() {
       setCakeColor(location.state.cakecolor);
       setDataURL(location.state.dataURL);
       //downloadURI(location.state.dataURL, "test.png")
-      console.log("testcolor", location.state.cakecolor);
-      console.log("testlocal", cakeColor);
-      console.log("dataURL", dataURL);
-      console.log("imgmap", img);
     } else {
       navigate("/");
     }

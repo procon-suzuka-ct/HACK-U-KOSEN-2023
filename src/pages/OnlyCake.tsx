@@ -19,7 +19,6 @@ function Design() {
   const [cakeColor, setCakeColor] = useState<string>("");
   const fR = new RenderImage(imgmap);
   const fP = new Drow(lines);
-  const fD = new RenderImage(imgmap);
 
   let dataURL: string = "";
 
@@ -41,7 +40,8 @@ function Design() {
         navigate("/confirmation", {
           state: {
             dataURL: dataURL,
-            imgmap: fD.imagemap,
+            lines: location.state.lines,
+            imgmap: location.state.imgmap,
             cakecolor: location.state.cakecolor,
             messsage: "ok"
           }

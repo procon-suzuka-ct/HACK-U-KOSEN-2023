@@ -66,15 +66,13 @@ function Design() {
 
   useLayoutEffect(() => {
     if (location.state) {
-      setCakeColor(location.state.cakecolor);
       setlines(location.state.lines);
-      setImg(location.state.image);
-      fR.imagemap = location.state.imgmap;
-      fP.lines = location.state.lines;
-      console.log(fP.lines);
-      location.state = null;
+      setImg(location.state.imgmap);
+      setCakeColor(location.state.cakecolor);
+      fR.imagemap = img;
+      fP.lines = lines;
     }
-  }, [location, fR, fP])
+  }, [])
 
   useEffect(() => {
     fP.colorChange(penColor);

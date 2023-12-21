@@ -1,5 +1,5 @@
-import {Layer, Line} from 'react-konva';
-import {KonvaEventObject} from 'konva/lib/Node';
+import { Layer, Line } from 'react-konva';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 type typeline = {
   tool: string;
@@ -22,7 +22,7 @@ export class Drow {
       console.log("pos is undefined || null");
     } else {
       //add line
-      const currentline: typeline[] = [{tool: tool, points: [pos.x, pos.y], color: this.color}];
+      const currentline: typeline[] = [{ tool: tool, points: [pos.x, pos.y], color: this.color }];
       this.lines.push(currentline[0]);
     }
   }
@@ -47,28 +47,28 @@ export class Drow {
 
 
   render() {
-    return (
-      <Layer>
-        {this.lines.map((line, i) => (
-          <Line
-            key={i}
-            points={line.points}
-            stroke={line.color}
-            strokeWidth={5}
-            tension={0.5}
-            lineCap="round"
-            lineJoin="round"
-            globalCompositeOperation={
-              line.tool === 'eraser' ? 'destination-out' : 'source-over'
-            }
-          />
-        ))}
-      </Layer>
-    );
-  }
+      return (
+        <Layer>
+          {this.lines.map((line, i) => (
+            <Line
+              key={i}
+              points={line.points}
+              stroke={line.color}
+              strokeWidth={5}
+              tension={0.5}
+              lineCap="round"
+              lineJoin="round"
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
+            />
+          ))}
+        </Layer>
+      );
+    }
 }
 
-export type {typeline};
+export type { typeline };
 
 /*
 
