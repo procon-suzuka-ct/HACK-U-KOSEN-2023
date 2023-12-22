@@ -36,9 +36,9 @@ function Change() {
         <Text text="と" x={right_width * 0.55} y={height10 * 2.5} fontSize={height10 * 0.35} align='center'/>
         <Text text="こうたいしてね！" x={right_width * 0.35} y={height10 * 3} fontSize={height10 * 0.35} align='center'/>
         <Image image={family} x={width10 * 1} y={height10 * 3.5} width={height10 * 5} height={height10 * 4}/>
-        <Rect onClick={onClickPaymentpage} fill='#BDCCA9' x={width * 0.07} y={height10 * 8.3} width={width10 * 6}
+        <Rect onClick={onClickPaymentpage} onTouchStart={onClickPaymentpage} fill='#BDCCA9' x={width * 0.07} y={height10 * 8.3} width={width10 * 6}
               height={width10 * 1.2} cornerRadius={70}/>
-        <Text onClick={onClickPaymentpage} x={width * 0.35} y={height10 * 8.65} text="すすむ"
+        <Text onClick={onClickPaymentpage} onTouchStart={onClickPaymentpage} x={width * 0.35} y={height10 * 8.65} text="すすむ"
               fontSize={height10 * 0.7}/>
       </Layer>
     </Stage>
