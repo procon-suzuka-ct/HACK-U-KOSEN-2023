@@ -40,7 +40,31 @@ export class Drow {
     this.lines.splice(this.lines.length - 1, 1, lastLine);
     this.lines = this.lines.concat();
   }
+  // = handleMouseDown
+  handleTouchStart(e: KonvaEventObject<TouchEvent>, tool: string) {
+    const pos = e.target.getStage()?.getPointerPosition();
+    if (pos === undefined || pos === null) {
+      console.log("pos is undefined || null");
+    } else {
+      //add line
+      const currentline: typeline[] = [{ tool: tool, points: [pos.x, pos.y], color: this.color }];
+      this.lines.push(currentline[0]);
+    }
+  }
+  // = handleMouseMove
+  handleTouchMove(e: KonvaEventObject<TouchEvent>) {
+    const pos = e.target.getStage()?.getPointerPosition();
+    const lastLine = this.lines[this.lines.length - 1];
 
+    if (pos == undefined || pos == null) {
+      console.log("pos is undefined || null");
+    } else {
+      lastLine.points = lastLine.points.concat([pos.x, pos.y]);
+    }
+
+    this.lines.splice(this.lines.length - 1, 1, lastLine);
+    this.lines = this.lines.concat();
+  }
   colorChange(color: string) {
     this.color = color;
   }
