@@ -76,7 +76,6 @@ function Design() {
 
   useEffect(() => {
     fP.colorChange(penColor);
-    console.log(penColor, fP.color);
   }, [fP, penColor])
 
   useEffect(() => {
@@ -85,7 +84,6 @@ function Design() {
   }, [tool])
 
   const handleOnSubmit = () => {
-    console.log(cakeColor);
     navigate("/onlycake", { state: { imgmap: img, lines: lines, cakecolor: cakeColor, messsage: "ok" } })
   }
 
@@ -286,12 +284,10 @@ function Design() {
 
         <Image
           onClick={() => {
-            console.log("onclick");
             fR.RemoveImage();
             setImg(fR.imagemap);
           }}
           onTouchStart={() => {
-            console.log("onclick");
             fR.RemoveImage();
             setImg(fR.imagemap);
           }}
@@ -301,20 +297,17 @@ function Design() {
       </Layer>
       <Layer
         onClick={(e: KonvaEventObject<MouseEvent>) => {
-          console.log("onclick");
           fR.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
             fR.onClick(e, toFruit(tool));
             setImg(fR.imagemap);
           } else if (tool == "eraser") {
             fR.now_erase_ = true;
-            console.log("eraser");
             fR.DeleteImage_Mouse(e);
             setImg(fR.imagemap);
           }
         }}
         onMouseDown={(e: KonvaEventObject<MouseEvent>) => {
-          console.log("mousedowntimes");
           if (tool == "pen" || tool == "eraser") {
             isDrowing.current = true;
             fP.handleMouseDown(e, tool);
@@ -322,12 +315,9 @@ function Design() {
           }
         }}
         onMouseup={() => {
-          console.log("mouseup");
           isDrowing.current = false;
-          console.log(isDrowing.current);
         }}
         onMousemove={(e: KonvaEventObject<MouseEvent>) => {
-          console.log("mousemove");
           if (!isDrowing.current) {
             return;
           } else {
@@ -335,13 +325,42 @@ function Design() {
             setlines(fP.lines);
           }
         }}
+        onTouchStart={(e: KonvaEventObject<TouchEvent>) => {
+          fR.now_erase_ = false;
+          if (tool != "pen" && tool != "hoip" && tool != "eraser") {
+            fR.onTouchStart(e, toFruit(tool));
+            setImg(fR.imagemap);
+          }else if (tool == "eraser") {
+            fR.now_erase_ = true;
+            fR.DeleteImage_Touch(e);
+            setImg(fR.imagemap);
+          }
+          if(tool == "pen" || tool == "eraser"){
+            isDrowing.current = true;
+            fP.handleTouchStart(e, tool);
+            setlines(fP.lines);
+          }
+        }}
+        onTouchEnd={() => {
+          isDrowing.current = false;
+        }}
+        onTouchMove={(e: KonvaEventObject<TouchEvent>) => {
+          if (!isDrowing.current) {
+            return;
+          } else {
+            fP.handleTouchMove(e);
+            setlines(fP.lines);
+          }
+        }}
+        
       >
         <ToImage
           cake={{ direction: "front", surface: cakeColor }}
           x={width10 / 2}
           y={height10 * 2}
           width={width / 1.3}
-          height={width / 1.3} />
+          height={width / 1.3}
+        />
         {
           fR.RenderImage()
         }

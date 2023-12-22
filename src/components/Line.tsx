@@ -40,7 +40,7 @@ export class Drow {
     this.lines.splice(this.lines.length - 1, 1, lastLine);
     this.lines = this.lines.concat();
   }
-
+  // = handleMouseDown
   handleTouchStart(e: KonvaEventObject<TouchEvent>, tool: string) {
     const pos = e.target.getStage()?.getPointerPosition();
     if (pos === undefined || pos === null) {
@@ -51,7 +51,7 @@ export class Drow {
       this.lines.push(currentline[0]);
     }
   }
-
+  // = handleMouseMove
   handleTouchMove(e: KonvaEventObject<TouchEvent>) {
     const pos = e.target.getStage()?.getPointerPosition();
     const lastLine = this.lines[this.lines.length - 1];
@@ -65,7 +65,6 @@ export class Drow {
     this.lines.splice(this.lines.length - 1, 1, lastLine);
     this.lines = this.lines.concat();
   }
-
   colorChange(color: string) {
     this.color = color;
   }
