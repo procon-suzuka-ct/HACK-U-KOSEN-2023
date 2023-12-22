@@ -13,7 +13,7 @@ const pwaConfig: VitePWAOptions = {
     navigateFallbackAllowlist: [/^(?!\/__).*/],
   },
   registerType: 'autoUpdate',
-  includeAssets: ['icon.jpg'],
+  includeAssets: ['icon.png'],
   manifest: {
     theme_color: "#FFFFFF",
     background_color: "#FFFFFF",
@@ -24,9 +24,9 @@ const pwaConfig: VitePWAOptions = {
     short_name: "けーきやさんた",
     icons: [
       {
-        src: "/icon.jpg",
+        src: "/icon.png",
         sizes: "256x256",
-        type: "image/jpg",
+        type: "image/png",
       }
     ]
   },
