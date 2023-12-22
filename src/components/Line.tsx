@@ -82,7 +82,9 @@ export class Drow {
             key={i}
             points={line.points}
             stroke={line.color}
-            strokeWidth={5}
+            strokeWidth={ 
+              line.tool === 'eraser' ? 20 : 5
+            }
             tension={0.5}
             lineCap="round"
             lineJoin="round"
