@@ -38,9 +38,9 @@ function Change() {
         <Text text="きみのところにとどけにいくよ！" x={right_width / 2 - height10 * 2.2} y={height10 * 2.4}
               fontSize={height10 * 0.35} align='center'/>
         <Image image={givsanta} x={width10 * 1.5} y={height10 * 3} width={height10 * 5} height={height10 * 5}/>
-        <Rect onClick={onClickHomepage} fill='#BDCCA9' x={width * 0.07} y={height10 * 8.3} width={width10 * 6}
+        <Rect onClick={onClickHomepage} onTouchStart={onClickHomepage} fill='#BDCCA9' x={width * 0.07} y={height10 * 8.3} width={width10 * 6}
               height={width10 * 1.2} cornerRadius={70}/>
-        <Text onClick={onClickHomepage} x={width * 0.35} y={height10 * 8.65} text="おわる" fontSize={height10 * 0.7}/>
+        <Text onClick={onClickHomepage} onTouchStart={onClickHomepage} x={width * 0.35} y={height10 * 8.65} text="おわる" fontSize={height10 * 0.7}/>
       </Layer>
     </Stage>
   );
