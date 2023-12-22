@@ -55,6 +55,7 @@ function Design() {
   const [lines, setlines] = useState<typeline[]>([]);
   const [tool, setTool] = useState<string>("pen");
   const isDrowing = useRef(false);
+  const isDragging = useRef(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -296,6 +297,8 @@ function Design() {
           fontSize={width / 30} fill="black" />
       </Layer>
       <Layer
+
+
         onClick={(e: KonvaEventObject<MouseEvent>) => {
           fR.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
@@ -326,26 +329,28 @@ function Design() {
           }
         }}
         onTouchStart={(e: KonvaEventObject<TouchEvent>) => {
-          fR.now_erase_ = false;
-          if (tool != "pen" && tool != "hoip" && tool != "eraser") {
-            fR.onTouchStart(e, toFruit(tool));
-            setImg(fR.imagemap);
-          }else if (tool == "eraser") {
-            fR.now_erase_ = true;
-            fR.DeleteImage_Touch(e);
-            setImg(fR.imagemap);
-          }
           if(tool == "pen" || tool == "eraser"){
             isDrowing.current = true;
             fP.handleTouchStart(e, tool);
             setlines(fP.lines);
           }
         }}
-        onTouchEnd={() => {
+        onTouchEnd={(e: KonvaEventObject<TouchEvent>) => {
+          fR.now_erase_ = false;
+          if (tool != "pen" && tool != "hoip" && tool != "eraser" && isDragging.current == false) {
+            fR.onTouchStart(e, toFruit(tool));
+            setImg(fR.imagemap);
+          }else if (tool == "eraser" && isDragging.current == false) {
+            fR.now_erase_ = true;
+            fR.DeleteImage_Touch(e);
+            setImg(fR.imagemap);
+          }
+          isDragging.current = false;
           isDrowing.current = false;
         }}
         onTouchMove={(e: KonvaEventObject<TouchEvent>) => {
           if (!isDrowing.current) {
+            isDragging.current = true;
             return;
           } else {
             fP.handleTouchMove(e);

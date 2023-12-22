@@ -27,6 +27,7 @@ function URLImage(props: { img: IMAGE, candrag: boolean }) {
       props.img.x = e.target.x();
       props.img.y = e.target.y();
     }}
+    
   />
 }
 
