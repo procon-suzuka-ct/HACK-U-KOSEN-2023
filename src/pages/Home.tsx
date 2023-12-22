@@ -6,6 +6,11 @@ import button_next from "../assets/system/button.png"
 import {Cake} from "../utils/cake.ts";
 import {useEffect, useState} from "react";
 import useImage from 'use-image';
+import {getRedirectResult, GoogleAuthProvider, signInWithRedirect} from "firebase/auth";
+import {auth} from "../firebase.ts";
+import {appUserStore} from "../stores/appUserStore.ts";
+import {AppUser} from "../utils";
+import {useNavigate} from "react-router-dom";
 
 
 const URLImage = (props: { cake: Cake, x: number, y: number, width: number, height: number }) => {
@@ -26,6 +31,16 @@ const Home = () => {
 
   const [cakes, setCakes] = useState<Cake[]>([]);
   const [showcase] = useImage(case_show);
+  const router = useNavigate();
+
+  useEffect(() => {
+    getRedirectResult(auth).then((result) => {
+      if (result?.user) {
+        const newUser = new AppUser(result.user);
+        appUserStore.set(newUser);
+      }
+    })
+  }, []);
 
   useEffect(() => {
     Cake.getCakes().then((cakes) => {
@@ -44,7 +59,10 @@ const Home = () => {
       <header>
         けーきやさんた
         <div className={styles.content}>
-          <a href="/Login">ログイン </a>
+          <a onClick={async () => {
+            const provider = new GoogleAuthProvider();
+            await signInWithRedirect(auth, provider);
+          }}>ログイン </a>
           お問い合わせ
         </div>
 
@@ -72,9 +90,8 @@ const Home = () => {
             }
           </Layer>
         </Stage>
-        <a href="/Design"><img src={button_next}/></a>
+        <a onClick={() => router("/design")}><img alt={"next button"} src={button_next}/></a>
       </main>
-
     </div>
   )
 }
