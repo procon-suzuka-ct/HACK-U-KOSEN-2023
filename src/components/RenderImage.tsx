@@ -94,6 +94,20 @@ export class RenderImage {
       this.imagemap = this.imagemap.concat([img]);
     }
   }
+  onTouchStart(e: KonvaEventObject<TouchEvent>, Fruit: Fruit) {
+    const pos = e.target.getStage()?.getPointerPosition();
+    if (pos) {
+      const img: IMAGE = {
+        id: pos.x + pos.y,
+        scr: Fruit.scr,
+        x: pos.x,
+        y: pos.y,
+        width: Fruit.width,
+        height: Fruit.height
+      }
+      this.imagemap = this.imagemap.concat([img]);
+    }
+  }
 
   RenderImage() {
       return (
@@ -109,7 +123,7 @@ export class RenderImage {
   }
 
   //クリックした要素を削除
-  DeleteImage(e: KonvaEventObject<MouseEvent>) {
+  DeleteImage_Mouse(e: KonvaEventObject<MouseEvent>) {
     if (this.now_erase_) {
       const id = Number(e.target.name());
       const item = this.imagemap.find((i) => i.id == id);
@@ -122,6 +136,18 @@ export class RenderImage {
     }
   }
 
+  DeleteImage_Touch(e: KonvaEventObject<TouchEvent>) {
+    if (this.now_erase_) {
+      const id = Number(e.target.name());
+      const item = this.imagemap.find((i) => i.id == id);
+      if (!item) {
+        return;
+      }
+      const index = this.imagemap.indexOf(item);
+      //remove from the list:
+      this.imagemap = this.imagemap.filter((_, i) => i !== index);
+    }
+  }
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

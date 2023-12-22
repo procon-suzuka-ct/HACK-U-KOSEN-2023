@@ -309,7 +309,7 @@ function Design() {
           } else if (tool == "eraser") {
             fR.now_erase_ = true;
             console.log("eraser");
-            fR.DeleteImage(e);
+            fR.DeleteImage_Mouse(e);
             setImg(fR.imagemap);
           }
         }}
