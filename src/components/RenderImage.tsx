@@ -87,8 +87,8 @@ export class RenderImage {
       const img: IMAGE = {
         id: pos.x + pos.y,
         scr: Fruit.scr,
-        x: pos.x,
-        y: pos.y,
+        x: pos.x - (Fruit.width / 2 ),
+        y: pos.y - (Fruit.height / 2),
         width: Fruit.width,
         height: Fruit.height
       }
@@ -101,8 +101,8 @@ export class RenderImage {
       const img: IMAGE = {
         id: pos.x + pos.y,
         scr: Fruit.scr,
-        x: pos.x,
-        y: pos.y,
+        x: pos.x - (Fruit.width / 2) ,
+        y: pos.y - (Fruit.height / 2),
         width: Fruit.width,
         height: Fruit.height
       }
