@@ -8,6 +8,8 @@ import kiwi from "../assets/fruits/kiwi-fruit.png";
 import cream_stroberry from "../assets/system/cream_2.png";
 import cream_chocolate from "../assets/system/cream_3.png";
 import cream_normal from "../assets/system/cream.png";
+import eraser from "../assets/system/eraser.png"
+import pen from "../assets/system/pen.png";
 
 type Fruit = {
   name: string;
@@ -61,6 +63,16 @@ function toFruit(name: string) {
       scr = cream_normal;
       width = width10 * 0.7;
       height = height10 * 0.7;
+      break;
+    case "eraser":
+      scr = eraser;
+      width = width10;
+      height = height10;
+      break;
+    case "pen":
+      scr = pen;
+      width = width10;
+      height = height10;
       break;
     default:
       scr = "";

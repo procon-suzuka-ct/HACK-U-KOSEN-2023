@@ -2,9 +2,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Image, Layer, Line, Rect, Stage, Text } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { toFruit } from '../components/Fruit';
+import { toFruit} from '../components/Fruit';
 import { IMAGE, RenderImage } from '../components/RenderImage';
 import { ToImage } from '../components/Cake';
+import {ToImage as FruitImage} from "../components/Fruit.tsx";
 import useImage from 'use-image';
 import sys_background from "../assets/system/background.png";
 import sys_menu from "../assets/system/menu.png";
@@ -130,9 +131,10 @@ function Design() {
           fill="black" />
         <Rect fill='pink' x={right_width} y={height10 * 1.6} width={width10} height={height10 * 6.8} cornerRadius={30} />
 
-        <Text x={width10 * 3.25} y={0} text={"ツール:" + tool} fontFamily="sans-serif" fontSize={width / 30}
-          fill="black" />
-
+        <Rect fill='#e3fcff' x={width10 * 4} y={5} width={width10} height={height10} cornerRadius={30} />
+        {
+            <FruitImage fruit={toFruit(tool)} x={width10 * 4} y={5} draggable={false}/>
+          }
         <Image
           onClick={() => {
             setTool("strawberry")
