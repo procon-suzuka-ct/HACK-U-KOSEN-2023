@@ -8,7 +8,6 @@ import { ToImage } from '../components/Cake';
 import {ToImage as FruitImage} from "../components/Fruit.tsx";
 import useImage from 'use-image';
 import sys_background from "../assets/system/background.png";
-import sys_menu from "../assets/system/menu.png";
 import fruit_strawberry from "../assets/fruits/strawberry.png";
 import fruit_mango from "../assets/fruits/mango.png";
 import fruit_blueberry from "../assets/fruits/blueberry.png";
@@ -25,7 +24,6 @@ import { Drow, typeline } from "../components/Line.tsx"
 function Design() {
 
   const [background] = useImage(sys_background);
-  const [menu] = useImage(sys_menu);
   const [strawberry] = useImage(fruit_strawberry);
   const [mango] = useImage(fruit_mango);
   const [blueberry] = useImage(fruit_blueberry);
@@ -41,12 +39,9 @@ function Design() {
   const height = document.body.clientHeight;
   const width10 = width / 7;
   const height10 = height / 10;
-  const system_width = width10 * 0.8;
-  const system_height = height10 * 0.8;
   const right_width = width - width10;
   const bottom_height = height - height10;
 
-  const [, setBool_menu] = useState(false);
   const [bool_penColor, setBool_penColor] = useState(false);
   const [bool_hoipColor, setBool_hoipColor] = useState(false);
   const [bool_cakeColor, setBool_cakeColor] = useState(false);
