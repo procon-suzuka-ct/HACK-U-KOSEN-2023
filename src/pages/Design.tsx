@@ -97,16 +97,7 @@ function Design() {
       </Layer>
 
       <Layer>
-        <Rect fill='pink' x={right_width} y={0} width={width10} height={height10} cornerRadius={20} />
-        <Image
-          onClick={() => {
-            setBool_menu(true);
-          }}
-          onTouchStart={() => {
-            setBool_menu(true);
-          }}
-          image={menu} x={right_width + (width10 * 0.1)} y={height10 * 0.1} width={system_width}
-          height={system_height} />
+        
         <Rect fill='pink' x={0} y={0} width={width10 * 1.5} height={height10 * 1.8} cornerRadius={20} />
         <Rect fill='white' x={width10 * 0.1} y={height10 * 0.1} width={width10 * 1.3} height={height10 * 1.3}
           cornerRadius={20} />
@@ -131,10 +122,12 @@ function Design() {
           fill="black" />
         <Rect fill='pink' x={right_width} y={height10 * 1.6} width={width10} height={height10 * 6.8} cornerRadius={30} />
 
-        <Rect fill='#e3fcff' x={width10 * 4} y={5} width={width10} height={height10} cornerRadius={30} />
+        <Rect fill='pink' x={right_width} y={0} width={width10} height={height10} cornerRadius={20} />
+
+        <Rect fill='#e3fcff' x={right_width} y={0} width={width10} height={height10} cornerRadius={30} />
         {
-            <FruitImage fruit={toFruit(tool)} x={width10 * 4} y={5} draggable={false}/>
-          }
+            <FruitImage fruit={toFruit(tool)} x={right_width} y={0} draggable={false}/>
+        }
         <Image
           onClick={() => {
             setTool("strawberry")
@@ -299,8 +292,6 @@ function Design() {
           fontSize={width / 30} fill="black" />
       </Layer>
       <Layer
-
-
         onClick={(e: KonvaEventObject<MouseEvent>) => {
           fR.now_erase_ = false;
           if (tool != "pen" && tool != "hoip" && tool != "eraser") {
